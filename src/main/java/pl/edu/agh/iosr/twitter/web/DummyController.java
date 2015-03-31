@@ -1,6 +1,7 @@
 package pl.edu.agh.iosr.twitter.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,7 @@ public class DummyController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String printWelcome(ModelMap model) {
+
         String from = "twitter://search?type=polling&delay=2&keywords=korwin";
         String to = "log:tweet";
 
