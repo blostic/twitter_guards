@@ -5,6 +5,7 @@ import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -20,24 +21,45 @@ public class RankerUtils {
         positiveWords.add("nice");
         positiveWords.add("cool");
         positiveWords.add("best");
+        positiveWords.add("like");
+        positiveWords.add("love");
+        positiveWords.add("beautiful");
+        positiveWords.add("cute");
+        positiveWords.add("happy");
 
         return positiveWords;
     }
 
     static List<String> declareNegativeWords() {
-        List<String> negativeeWords = new ArrayList<String>();
+        List<String> negativeWords = new ArrayList<String>();
 
-        negativeeWords.add("bad");
-        negativeeWords.add("awful");
-        negativeeWords.add("ugly");
-        negativeeWords.add("disgusting");
-        negativeeWords.add("worst");
-        negativeeWords.add("suck");
-        negativeeWords.add("sux");
+        negativeWords.add("bad");
+        negativeWords.add("awful");
+        negativeWords.add("ugly");
+        negativeWords.add("disgusting");
+        negativeWords.add("worst");
+        negativeWords.add("suck");
+        negativeWords.add("sux");
+        negativeWords.add("hate");
+        negativeWords.add("kill");
+        negativeWords.add("upset");
 
-        return negativeeWords;
-
+        return negativeWords;
     }
+
+    static List<String> declareEmphasisWords() {
+        List<String> emphasisWords = new ArrayList<String>();
+
+        emphasisWords.add("very");
+        emphasisWords.add("much");
+        emphasisWords.add("lot");
+        emphasisWords.add("many");
+        emphasisWords.add("real");
+        emphasisWords.add("really");
+
+        return emphasisWords;
+    }
+
 
     static String[] getWordListFromText(String text) {
         return text.toLowerCase().split("[[ ]*|[,]*|[\\.]*|[:]*|[/]*|[!]*|[?]*|[+]*]+");
@@ -59,6 +81,18 @@ public class RankerUtils {
         TwitterFactory tf = new TwitterFactory(cb.build());
         return tf.getInstance();
 
+    }
+
+    static boolean checkEmphasisWords(String[] words, List<String> emphasisWords, int index) {
+        String previousWord = "";
+        String nextWord = "";
+        if (index > 0) {
+            previousWord = words[index - 1];
+        }
+        if (words.length > index + 1) {
+            nextWord = words[index + 1];
+        }
+        return emphasisWords.contains(previousWord) || emphasisWords.contains(nextWord);
     }
 
 

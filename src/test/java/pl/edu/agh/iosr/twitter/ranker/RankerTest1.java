@@ -28,7 +28,7 @@ public class RankerTest1 {
     @Test
     public void test() {
         System.out.println("RankerTest1");
-        rank = new RankerCore().rank(tweet);
+        rank = Ranker.rank(tweet);
         assertTrue(rank instanceof Integer);
 
     }

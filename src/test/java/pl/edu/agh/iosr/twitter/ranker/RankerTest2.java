@@ -14,6 +14,6 @@ public class RankerTest2 {
     @Test(expected = IllegalArgumentException.class)
     public void testSalutationMessage() {
         System.out.println("RankerTest2");
-        new RankerCore().rank(tweet);
+        Ranker.rank(tweet);
     }
 }

@@ -16,9 +16,9 @@ public class RankerTest {
         RankerTest ranker = new RankerTest();
 
         Twitter twitter = ranker.getTwitterInstance();
-        ranker.searchTweets(twitter, "IET");
+        ranker.searchTweets(twitter, "hate");
         System.out.println();
-        ranker.getTimeLine(twitter);
+//        ranker.getTimeLine(twitter);
     }
 
     Twitter getTwitterInstance() {
@@ -43,7 +43,7 @@ public class RankerTest {
         QueryResult result = twitter.search(query);
 
         for (Status status : result.getTweets()) {
-            int tweetRank = new RankerCore().rank(status);
+            int tweetRank = Ranker.rank(status);
 
             System.out.println("rank: " + tweetRank + " | @" + status.getUser().getScreenName() + ":" + status.getText());
         }
@@ -53,7 +53,7 @@ public class RankerTest {
         List<Status> statuses = twitter.getHomeTimeline();
 
         for (Status status : statuses) {
-            int tweetRank = new RankerCore().rank(status);
+            int tweetRank = Ranker.rank(status);
             System.out.println("rank: " + tweetRank + " | " + status.getUser().getName() + ":" + status.getText());
         }
     }

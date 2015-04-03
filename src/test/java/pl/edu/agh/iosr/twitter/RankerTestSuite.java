@@ -13,7 +13,6 @@ import pl.edu.agh.iosr.twitter.ranker.RankerTest2;
 @Suite.SuiteClasses({
         RankerTest1.class,
         RankerTest2.class
-
 })
 public class RankerTestSuite {
 }
