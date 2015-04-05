@@ -21,7 +21,6 @@ import org.springframework.web.context.WebApplicationContext;
 public class AppTests {
     private MockMvc mockMvc;
 
-    @SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired
     protected WebApplicationContext wac;
 
