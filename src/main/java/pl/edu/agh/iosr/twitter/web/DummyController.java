@@ -24,7 +24,6 @@ public class DummyController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String printWelcome(ModelMap model) {
-		System.err.println("???????????????????");
         String from = "twitter://search?type=polling&delay=2&keywords=korwin";
         String to = "log:tweet";
 
