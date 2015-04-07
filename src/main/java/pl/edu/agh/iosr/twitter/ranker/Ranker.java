@@ -9,14 +9,12 @@ import twitter4j.Status;
 
 public class Ranker {
     public static int rank(Status tweet) {
-
         if (tweet == null) {
             throw new IllegalArgumentException();
         }
+        String[] words = RankerUtils.getWordListFromText(tweet.getText());
 
         RankerCore core = new RankerCore();
-
-        String[] words = RankerUtils.getWordListFromText(tweet.getText());
 
         int positiveRank = core.getPositiveRank(words);
         int negativeRank = core.getNegativeRank(words);

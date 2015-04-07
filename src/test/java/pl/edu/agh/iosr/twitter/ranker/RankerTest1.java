@@ -17,7 +17,7 @@ public class RankerTest1 {
 
     @Before
     public void prepare() throws TwitterException {
-        Twitter twitter = RankerUtils.getTwitterInstance();
+        Twitter twitter = RankerTestUtils.getTwitterInstance();
         Query query = new Query("IET");
 
         QueryResult result = twitter.search(query);
