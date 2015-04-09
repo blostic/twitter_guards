@@ -1,0 +1,10 @@
+@import "../reindeer/reindeer.scss";
+
+@mixin mytheme {
+  @include reindeer;
+
+  /* An actual theme rule */
+  .v-button {
+    color: blue;
+  }
+}
