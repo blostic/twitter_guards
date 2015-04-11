@@ -6,13 +6,7 @@ import ui.views.CampaignTimelineView;
 import com.vaadin.annotations.JavaScript;
 import com.vaadin.annotations.Theme;
 import com.vaadin.server.VaadinRequest;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.Image;
-import com.vaadin.ui.Label;
 import com.vaadin.ui.UI;
-import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Window;
 
 @JavaScript({ "http://code.jquery.com/jquery-2.1.3.min.js" })
 @Theme("mytheme")
