@@ -1,7 +1,7 @@
 package ui;
 
 import ui.menu.TwitterHeader;
-import ui.views.OverviewView;
+import ui.views.CampaignTimelineView;
 
 import com.vaadin.annotations.JavaScript;
 import com.vaadin.annotations.Theme;
@@ -18,7 +18,7 @@ public class TwitterGuardUI extends UI {
 	protected void init(VaadinRequest request) {
 		
 		TwitterHeader header = new TwitterHeader();
-		ContentWrapper contentWrapper = new ContentWrapper(header, new OverviewView());
+		ContentWrapper contentWrapper = new ContentWrapper(header, new CampaignTimelineView());
 		
 		setContent(contentWrapper);
 	}
