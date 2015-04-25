@@ -189,6 +189,15 @@
      -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
 }
+
+.cd-timeline-content:hover .v-label {
+	cursor: pointer;
+}
+
+.cd-timeline-content:hover {
+	cursor: pointer;
+}
+
 .cd-timeline-content:after {
   content: "";
   display: table;
@@ -207,6 +216,45 @@
   	left: -13px;
 	border: 7px solid transparent;
   	border-right: 7px solid white;
+}
+
+.v-slot-cd-timeline-block.v-slot-new-campaign .cd-timeline-content {
+	background-color: rgb(247, 247, 247);
+	-webkit-transition: background 0.5s ease-in-out;
+	-moz-transition: background 0.5s ease-in-out;
+	-ms-transition: background 0.5s ease-in-out;
+	-o-transition: background 0.5s ease-in-out;
+	transition: background 0.5s ease-in-out;
+}
+
+.v-slot-cd-timeline-block.v-slot-new-campaign .cd-timeline-content:hover
+	{
+	background-color: rgb(188, 221, 244);
+	-webkit-transition: background 0.5s ease-in-out;
+	-moz-transition: background 0.5s ease-in-out;
+	-ms-transition: background 0.5s ease-in-out;
+	-o-transition: background 0.5s ease-in-out;
+	transition: background 0.5s ease-in-out;
+}
+
+.v-slot-cd-timeline-block.v-slot-new-campaign .v-slot-cd-timeline-content:hover .cd-timeline-content:after
+	{
+	border-left: 7px solid rgb(188, 221, 244);
+	-webkit-transition: all 0.5s ease-in-out;
+	-moz-transition: all 0.5s ease-in-out;
+	-ms-transition: all 0.5s ease-in-out;
+	-o-transition: all 0.5s ease-in-out;
+	transition: all 0.5s ease-in-out;
+}
+
+.v-slot-cd-timeline-block.v-slot-new-campaign .cd-timeline-content:after
+	{
+	border-left: 7px solid rgb(247, 247, 247);
+	-webkit-transition: all 0.5s ease-in-out;
+	-moz-transition: all 0.5s ease-in-out;
+	-ms-transition: all 0.5s ease-in-out;
+	-o-transition: all 0.5s ease-in-out;
+	transition: all 0.5s ease-in-out;
 }
 
 .cd-timeline-content h2 {
@@ -450,6 +498,17 @@
     white-space: normal;
 }
 
+.cd-timeline-block {
+	width: 100%;
+}
+.v-horizontallayout-cd-timeline-block {
+	width: 100%;	
+}
+
+.cd-timeline-block .v-horizontallayout-cd-timeline-block {
+	width: 100%;
+	min-width: 45%;
+}
 .v-verticallayout {
     font-size: 14px;
 }
@@ -492,3 +551,14 @@
 .v-slot-cd-timeline-block:nth-child(10) .v-slot-cd-movie {
     background-color: red;
 }
+
+.new-campaign {
+	background-color: rgb(234, 234, 234);
+}
+
+.new-campaign-label {
+	text-align: center;
+	font-size: 22px;
+	line-height: 26px;	
+}
+
