@@ -1,0 +1,54 @@
+
+.custome-text-field .v-textfield[type="text"] {
+	background-image: none;
+	background-color: rgba(247, 247, 247, 0.16);
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid rgb(231, 231, 231);
+	padding-left: 10px;
+}
+
+.custome-text-field .v-label {
+	font-size: 13px;
+	line-height: 17px;
+	color: rgb(181, 181, 182);
+}
+
+.custome-date-field .v-datefield-textfield {
+	background-image: none;
+	background-color: rgba(247, 247, 247, 0.16);
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid rgb(231, 231, 231);
+	padding-left: 10px;
+}
+
+.custome-date-field input.v-datefield-textfield[type="text"] {
+	height: 40px;
+	padding-left: 10px;
+}
+
+.custome-date-field button.v-datefield-button[type="button"] {
+	background-image: url("./graphics/calendar.png");
+	background-color: rgb(247, 247, 247);
+	height: 40px;
+	background-position: center;
+	background-size: 50% 40%;
+	background-repeat: no-repeat;
+	border: 1px solid rgb(231, 231, 231);
+	
+	-webkit-border-top-right-radius: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+	-moz-border-radius-topright: 5px;
+	-moz-border-radius-bottomright: 5px;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+.custome-date-field .v-label {
+	font-size: 13px;
+	line-height: 17px;
+	color: rgb(181, 181, 182);
+}

@@ -13,14 +13,23 @@ import com.vaadin.ui.UI;
 //@PreserveOnRefresh
 public class TwitterGuardUI extends UI {
 	private static final long serialVersionUID = 1L;
+	private ContentWrapper contentWrapper;
 
 	@Override
 	protected void init(VaadinRequest request) {
 		
 		TwitterHeader header = new TwitterHeader();
-		ContentWrapper contentWrapper = new ContentWrapper(header, new CampaignTimelineView());
+		setContentWrapper(new ContentWrapper(header, new CampaignTimelineView()));
 		
-		setContent(contentWrapper);
+		setContent(getContentWrapper());
+	}
+
+	public ContentWrapper getContentWrapper() {
+		return contentWrapper;
+	}
+
+	public void setContentWrapper(ContentWrapper contentWrapper) {
+		this.contentWrapper = contentWrapper;
 	}
 
 }

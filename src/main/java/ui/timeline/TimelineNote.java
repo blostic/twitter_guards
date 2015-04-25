@@ -1,5 +1,10 @@
 package ui.timeline;
 
+import ui.TwitterGuardUI;
+import ui.timeline.editor.EditorView;
+
+import com.vaadin.event.LayoutEvents.LayoutClickEvent;
+import com.vaadin.event.LayoutEvents.LayoutClickListener;
 import com.vaadin.server.Resource;
 import com.vaadin.server.ThemeResource;
 import com.vaadin.shared.ui.label.ContentMode;
@@ -7,6 +12,7 @@ import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 public class TimelineNote extends HorizontalLayout {
@@ -25,6 +31,15 @@ public class TimelineNote extends HorizontalLayout {
 		content.setComponentAlignment(addNewProgram, Alignment.MIDDLE_CENTER);
 		content.setSizeFull();
 		
+		content.addLayoutClickListener(new LayoutClickListener() {
+			
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void layoutClick(LayoutClickEvent event) {
+				((TwitterGuardUI)UI.getCurrent()).getContentWrapper().setContent(new EditorView());
+			}
+		});
 		setWidth("45%");
 	}
 	
