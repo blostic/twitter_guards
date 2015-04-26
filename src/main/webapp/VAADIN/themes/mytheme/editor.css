@@ -68,3 +68,37 @@
 .v-slot .editor-finish-button:active {
 	background-color: rgb(98, 106, 255);
 }
+
+.v-slot .add-keyword-button {
+  	background-color: rgb(102, 255, 98);
+  	color: white;
+}
+
+.v-slot .add-keyword-button .v-button-caption {
+  	color: white;
+  	text-shadow: none;
+}
+  	
+.v-slot .add-keyword-button:hover,
+.v-slot .add-keyword-button:focus,
+.v-slot .add-keyword-button:active {
+	background-color: rgb(202, 255, 98);
+}
+
+.keyword-component-style {
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background-color: rgb(236, 236, 236);
+	border: 1px solid rgb(178, 178, 179);
+	padding-left: 10px;
+	line-height: 21px;
+}
+
+.v-slot .x-button.v-button {
+	background-image: url("./graphics/x-button.png") !important;
+	background-repeat: no-repeat;
+	background-size: 60%;
+	background-color: rgb(197, 181, 186);
+	background-position: center;
+}

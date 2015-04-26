@@ -1,7 +1,7 @@
 package ui;
 
 import ui.menu.TwitterHeader;
-import ui.views.CampaignTimelineView;
+import ui.timeline.editor.steps.KeywordsSpecification;
 
 import com.vaadin.annotations.JavaScript;
 import com.vaadin.annotations.Theme;
@@ -19,7 +19,7 @@ public class TwitterGuardUI extends UI {
 	protected void init(VaadinRequest request) {
 		
 		TwitterHeader header = new TwitterHeader();
-		setContentWrapper(new ContentWrapper(header, new CampaignTimelineView()));
+		setContentWrapper(new ContentWrapper(header, new KeywordsSpecification()));
 		
 		setContent(getContentWrapper());
 	}
