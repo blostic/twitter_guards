@@ -17,20 +17,28 @@ public class CustomeTextField extends HorizontalLayout {
 	public CustomeTextField(String descripiton, String initialValue){ 
 		customizeTextField();
 		Label descripitonLabel = new Label(descripiton);
-		textField.setInputPrompt(initialValue);
+		getTextField().setInputPrompt(initialValue);
 
-		addComponents(descripitonLabel, textField);
+		addComponents(descripitonLabel, getTextField());
 		
 		setComponentAlignment(descripitonLabel, Alignment.MIDDLE_RIGHT);
-		setComponentAlignment(textField, Alignment.MIDDLE_RIGHT);
+		setComponentAlignment(getTextField(), Alignment.MIDDLE_RIGHT);
 		
 		setSpacing(true);
 	}
 
 	private void customizeTextField() {
-		textField.setWidth(DEFAULT_WIDTH);
-		textField.setHeight(DEFAULT_HEIGHT);
+		getTextField().setWidth(DEFAULT_WIDTH);
+		getTextField().setHeight(DEFAULT_HEIGHT);
 		setStyleName("custome-text-field");
+	}
+
+	public TextField getTextField() {
+		return textField;
+	}
+
+	public void setTextField(TextField textField) {
+		this.textField = textField;
 	}
 	
 }
