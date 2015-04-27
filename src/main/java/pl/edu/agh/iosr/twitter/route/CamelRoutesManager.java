@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 
+import java.util.List;
+
 /**
  * Created by radek on 30.03.15.
  *
@@ -36,7 +38,7 @@ public class CamelRoutesManager implements InitializingBean {
     @Value("${twitter.accessTokenSecret}")
     private String accessTokenSecret;
 
-    public void addRoute(String from, String to){
+    public void addRoute(String from, List<String> to){
         DynamicRouteBuilder rtbuilder = new DynamicRouteBuilder(from, to);
         log.info("Adding new route " + from);
         try {

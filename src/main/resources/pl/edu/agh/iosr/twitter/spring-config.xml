@@ -8,8 +8,13 @@
     <context:annotation-config/>
 
     <import resource="camel/camel-config.xml"/>
+    <import resource="ranker-spring-config.xml"/>
 
     <bean id="camelRoutesManager" class="pl.edu.agh.iosr.twitter.route.CamelRoutesManager"/>
 
     <bean id="toLogProcessor" class="pl.edu.agh.iosr.twitter.processor.TweetToLogProcessor"/>
+
+    <bean id="tweetRankProcessor" class="pl.edu.agh.iosr.twitter.processor.TweetRankProcessor">
+        <property name="ranker" ref="def-ranker"/>
+    </bean>
 </beans>
