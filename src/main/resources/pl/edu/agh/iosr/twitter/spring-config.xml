@@ -10,4 +10,6 @@
     <import resource="camel/camel-config.xml"/>
 
     <bean id="camelRoutesManager" class="pl.edu.agh.iosr.twitter.route.CamelRoutesManager"/>
+
+    <bean id="toLogProcessor" class="pl.edu.agh.iosr.twitter.processor.TweetToLogProcessor"/>
 </beans>
