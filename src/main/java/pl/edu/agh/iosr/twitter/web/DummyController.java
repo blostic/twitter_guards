@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import pl.edu.agh.iosr.twitter.route.CamelRoutesManager;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Created by radek on 30.03.15.
  *
@@ -25,11 +28,12 @@ public class DummyController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String printWelcome(ModelMap model) {
         String from = "twitter://search?type=polling&delay=2&keywords=korwin";
-        String to = "bean:toLogProcessor";
+
+        List<String> to = Arrays.asList("bean:tweetRankProcessor", "mongodb:mongoBean?database=twitter-guard&collection=tweets&operation=insert");
 
         manager.addRoute(from, to);
 
-		model.addAttribute("message", "Hello world!");
+        model.addAttribute("message", "Hello world!");
 		return "hello";
 	}
 }

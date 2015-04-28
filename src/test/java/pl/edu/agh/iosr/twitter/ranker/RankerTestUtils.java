@@ -4,6 +4,10 @@ package pl.edu.agh.iosr.twitter.ranker;
  * Created on 2 Apr, 2015 by Jakub Sloniec.
  */
 
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
 
@@ -12,7 +16,12 @@ import java.io.InputStream;
 import java.util.List;
 
 @Deprecated
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"/spring-test-config.xml"})
 public class RankerTestUtils {
+
+    @Autowired
+    IRanker ranker;
 
 
     public static void main(String[] args) throws TwitterException {
@@ -49,7 +58,7 @@ public class RankerTestUtils {
         QueryResult result = twitter.search(query);
 
         for (Status status : result.getTweets()) {
-            int tweetRank = Ranker.rank(status);
+            int tweetRank = ranker.rank(status);
 
             System.out.println("rank: " + tweetRank + " | @" + status.getUser().getScreenName() + ":" + status.getText());
         }
@@ -59,7 +68,7 @@ public class RankerTestUtils {
         List<Status> statuses = twitter.getHomeTimeline();
 
         for (Status status : statuses) {
-            int tweetRank = Ranker.rank(status);
+            int tweetRank = ranker.rank(status);
             System.out.println("rank: " + tweetRank + " | " + status.getUser().getName() + ":" + status.getText());
         }
     }

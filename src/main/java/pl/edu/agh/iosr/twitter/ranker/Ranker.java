@@ -7,8 +7,8 @@ import twitter4j.Status;
  */
 
 
-public class Ranker {
-    public static int rank(Status tweet) {
+public class Ranker implements IRanker{
+    public int rank(Status tweet) {
         if (tweet == null) {
             throw new IllegalArgumentException();
         }
