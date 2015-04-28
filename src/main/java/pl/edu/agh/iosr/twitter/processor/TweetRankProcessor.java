@@ -13,9 +13,9 @@ public class TweetRankProcessor extends AbstractTwitterProcessor {
     private IRanker ranker;
 
     @Override
-    public Object doWithTweet(Status tweet) {
+    public Object doWithTweet(Status tweet, String campaignName) {
         Integer rank = ranker.rank(tweet);
-        TweetDTO dto = new TweetDTO(tweet, rank);
+        TweetDTO dto = new TweetDTO(tweet, rank, campaignName);
 
         return dto;
     }

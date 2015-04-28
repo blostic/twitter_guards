@@ -38,8 +38,8 @@ public class CamelRoutesManager implements InitializingBean {
     @Value("${twitter.accessTokenSecret}")
     private String accessTokenSecret;
 
-    public void addRoute(String from, List<String> to){
-        DynamicRouteBuilder rtbuilder = new DynamicRouteBuilder(from, to);
+    public void addRoute(String from, List<String> to, String routeName){
+        DynamicRouteBuilder rtbuilder = new DynamicRouteBuilder(from, to, routeName);
         log.info("Adding new route " + from);
         try {
             camelContext.addRoutes(rtbuilder);
