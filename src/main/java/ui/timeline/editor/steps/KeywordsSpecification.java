@@ -28,8 +28,10 @@ public class KeywordsSpecification extends VerticalLayout {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				keywordContent.addComponent(new KeywordComponent(keywordSearch.getTextField().getValue(), keywordContent));
-				keywordSearch.getTextField().setValue("");
+				if (!"".equals(keywordSearch.getTextField().getValue())) {
+					keywordContent.addComponent(new KeywordComponent(keywordSearch.getTextField().getValue(), keywordContent));
+					keywordSearch.getTextField().setValue("");
+				}
 			}
 		});
 		
