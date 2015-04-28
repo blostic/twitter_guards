@@ -1,26 +1,26 @@
 package ui;
 
-import com.vaadin.annotations.PreserveOnRefresh;
+import ui.menu.TwitterHeader;
+import ui.views.CampaignTimelineView;
+
+import com.vaadin.annotations.JavaScript;
 import com.vaadin.annotations.Theme;
 import com.vaadin.server.VaadinRequest;
-import com.vaadin.tapio.googlemaps.GoogleMap;
 import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
 
+@JavaScript({ "http://code.jquery.com/jquery-2.1.3.min.js" })
 @Theme("mytheme")
-@PreserveOnRefresh
+//@PreserveOnRefresh
 public class TwitterGuardUI extends UI {
 	private static final long serialVersionUID = 1L;
 
 	@Override
 	protected void init(VaadinRequest request) {
-		VerticalLayout content = new VerticalLayout();
-		content.addStyleName("valo");
-		content.setSizeFull();
-		GoogleMap googleMap = new GoogleMap("");
-		googleMap.setWidth("800px");
-		googleMap.setHeight("400px");
-		content.addComponents(googleMap);
-		setContent(content);
+		
+		TwitterHeader header = new TwitterHeader();
+		ContentWrapper contentWrapper = new ContentWrapper(header, new CampaignTimelineView());
+		
+		setContent(contentWrapper);
 	}
+
 }
