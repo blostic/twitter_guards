@@ -102,3 +102,7 @@
 	background-color: rgb(197, 181, 186);
 	background-position: center;
 }
+
+.editor-content-style {
+	min-height: 350px;	
+}

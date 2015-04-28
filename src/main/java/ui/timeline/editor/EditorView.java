@@ -44,6 +44,8 @@ public class EditorView extends VerticalLayout {
 		setComponentAlignment(steps.get(currentIndex), Alignment.MIDDLE_CENTER);
 		setComponentAlignment(stepsManager, Alignment.MIDDLE_CENTER);
 		
+		steps.get(currentIndex).addStyleName("editor-content-style");
+		
 		setSpacing(true);
 	}
 	
