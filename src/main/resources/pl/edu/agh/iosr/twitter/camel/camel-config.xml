@@ -9,4 +9,13 @@
 
     </camelContext>
 
+    <bean id="mongoBean" class="com.mongodb.MongoClient">
+        <constructor-arg name="host" value="${mongodb.host}" />
+        <constructor-arg name="port" value="${mongodb.port}" />
+    </bean>
+
+    <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+        <constructor-arg ref="mongoBean"/>
+        <constructor-arg value="${mongodb.dbname}"/>
+    </bean>
 </beans>
