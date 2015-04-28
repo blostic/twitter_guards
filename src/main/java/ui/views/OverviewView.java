@@ -1,7 +1,5 @@
 package ui.views;
 
-import java.util.Map;
-
 import com.vaadin.ui.Label;
 
 public class OverviewView extends TwitterGuardsView {
