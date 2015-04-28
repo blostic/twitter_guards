@@ -11,14 +11,16 @@ public class DynamicRouteBuilder extends RouteBuilder {
 
     private final List<String> to;
     private final String from;
+    private final String routeName;
 
-    public DynamicRouteBuilder(String from, List<String> to){
+    public DynamicRouteBuilder(String from, List<String> to, String routeName){
         this.from = from;
         this.to = to;
+        this.routeName = routeName;
     }
 
     @Override
     public void configure() throws Exception {
-        from(from).to((String[])to.toArray());
+        from(from).setHeader("routeName", constant(routeName)).to((String[])to.toArray());
     }
 }

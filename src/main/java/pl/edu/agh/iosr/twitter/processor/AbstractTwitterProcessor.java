@@ -10,12 +10,13 @@ import twitter4j.Status;
  */
 public abstract class AbstractTwitterProcessor implements Processor {
 
-    public abstract Object doWithTweet(Status tweet);
+    public abstract Object doWithTweet(Status tweet, String campaignName);
 
     @Override
     public void process(Exchange exchange) throws Exception {
         Status tweet = exchange.getIn().getBody(Status.class);
+        String campaignName = exchange.getIn().getHeader("routeName", String.class);
 
-        exchange.getOut().setBody(doWithTweet(tweet));
+        exchange.getOut().setBody(doWithTweet(tweet, campaignName));
     }
 }
