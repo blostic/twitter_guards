@@ -36,7 +36,7 @@ public class DummyController {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    @RequestMapping(method = RequestMethod.GET, value = "view")
+    @RequestMapping(method = RequestMethod.GET, value = "view.htm")
     public String printWelcome(ModelMap model) {
 
         Query findQuery = new Query();
@@ -48,7 +48,7 @@ public class DummyController {
         return "dummy";
     }
 
-	@RequestMapping(method = RequestMethod.GET, value = "addTwitterRoute")
+	@RequestMapping(method = RequestMethod.GET, value = "addTwitterRoute.htm")
 	public String addRoute(ModelMap model) {
 
         manager.addPollingTwitterRouteWithRank(new TwitterRouteConfiguration("agh", "agh", "tweetRankProcessor", null, "tweets"));
@@ -56,7 +56,7 @@ public class DummyController {
 		return printWelcome(model);
 	}
 
-    @RequestMapping(method = RequestMethod.GET, value = "addFBRoute")
+    @RequestMapping(method = RequestMethod.GET, value = "addFBRoute.htm")
     public String addFBRoute(ModelMap model) {
 
         String fb = "facebook://searchPosts?query=agh&reading.limit=10&consumer.delay=5000";

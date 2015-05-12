@@ -67,5 +67,31 @@ public class CamelRoutesManager {
         }
     }
 
+    public void stopRoute(String routeId) throws CamelException {
+        if(!getRoutes().contains(routeId)){
+            throw new CamelException(String.format("Route with %s not found.", routeId));
+        } else {
+            try {
+                camelContext.stopRoute(routeId);
+            } catch (Exception e) {
+                throw new CamelException(e);
+            }
+
+        }
+    }
+
+    public void startRoute(String routeId) throws CamelException {
+        if(!getRoutes().contains(routeId)){
+            throw new CamelException(String.format("Route with %s not found.", routeId));
+        } else {
+            try {
+                camelContext.startRoute(routeId);
+            } catch (Exception e) {
+                throw new CamelException(e);
+            }
+
+        }
+    }
+
 
 }

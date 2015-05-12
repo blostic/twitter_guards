@@ -1,7 +1,9 @@
 package pl.edu.agh.iosr.twitter.route.spec.conf;
 
 
-public class TwitterRouteConfiguration {
+import java.io.Serializable;
+
+public class TwitterRouteConfiguration implements Serializable {
 
     private String routeName;
 
@@ -19,6 +21,9 @@ public class TwitterRouteConfiguration {
         this.rankerBean = rankerBean;
         this.dbName = dbName;
         this.dbCollection = dbCollection;
+    }
+
+    public TwitterRouteConfiguration() {
     }
 
     public String getRouteName() {
