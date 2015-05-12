@@ -1,6 +1,7 @@
 package pl.edu.agh.iosr.twitter.model;
 
 import org.springframework.data.mongodb.core.mapping.Document;
+import pl.edu.agh.iosr.twitter.dto.TweetDTO;
 import twitter4j.Status;
 
 import java.io.Serializable;
@@ -10,17 +11,19 @@ import java.io.Serializable;
  */
 
 @Document(collection = "tweets")
-public class TweetDTO implements Serializable{
+public class Tweet implements Serializable{
 
-    private Status tweet;
+    private TweetDTO tweet;
     private Integer rank;
     private String campaignName;
 
-    public TweetDTO(Status tweet, Integer rank, String campaignName) {
+    public Tweet(TweetDTO tweet, Integer rank, String campaignName) {
         this.tweet = tweet;
         this.rank = rank;
         this.campaignName = campaignName;
     }
+
+    public Tweet() {}
 
     public String getCampaignName() {
         return campaignName;
@@ -30,11 +33,11 @@ public class TweetDTO implements Serializable{
         this.campaignName = campaignName;
     }
 
-    public Status getTweet() {
+    public TweetDTO getTweet() {
         return tweet;
     }
 
-    public void setTweet(Status tweet) {
+    public void setTweet(TweetDTO tweet) {
         this.tweet = tweet;
     }
 

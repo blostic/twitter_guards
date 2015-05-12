@@ -1,6 +1,5 @@
-package pl.edu.agh.iosr.twitter.processor;
+package pl.edu.agh.iosr.twitter.processor.twitter;
 
-import org.apache.camel.Message;
 import org.apache.log4j.Logger;
 import twitter4j.Status;
 

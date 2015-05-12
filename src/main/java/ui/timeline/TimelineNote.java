@@ -47,6 +47,7 @@ public class TimelineNote extends HorizontalLayout {
         content.addComponent(new Label("<font size=5>"+title +"</font>", ContentMode.HTML));
         
         Label label = new Label(description, ContentMode.HTML);
+
         content.addComponent(label);
         label.setSizeFull();
         image.setSizeUndefined();

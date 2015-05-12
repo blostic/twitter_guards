@@ -1,7 +1,7 @@
-package pl.edu.agh.iosr.twitter.processor;
+package pl.edu.agh.iosr.twitter.processor.twitter;
 
-import org.apache.camel.Message;
-import pl.edu.agh.iosr.twitter.model.TweetDTO;
+import pl.edu.agh.iosr.twitter.dto.assembler.TweetDTOAssembler;
+import pl.edu.agh.iosr.twitter.model.Tweet;
 import pl.edu.agh.iosr.twitter.ranker.IRanker;
 import twitter4j.Status;
 
@@ -15,7 +15,7 @@ public class TweetRankProcessor extends AbstractTwitterProcessor {
     @Override
     public Object doWithTweet(Status tweet, String campaignName) {
         Integer rank = ranker.rank(tweet);
-        TweetDTO dto = new TweetDTO(tweet, rank, campaignName);
+        Tweet dto = new Tweet(TweetDTOAssembler.convert(tweet), rank, campaignName);
 
         return dto;
     }

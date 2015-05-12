@@ -1,15 +1,19 @@
 package pl.edu.agh.iosr.twitter.route;
 
+import org.apache.camel.CamelException;
 import org.apache.camel.component.twitter.TwitterComponent;
+import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.spring.SpringCamelContext;
 
+import org.apache.commons.collections.ListUtils;
+import org.apache.commons.collections.SetUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by radek on 30.03.15.
@@ -17,28 +21,17 @@ import java.util.List;
  * This component allows to add routes dynamically
  */
 
-public class CamelRoutesManager implements InitializingBean {
+public class CamelRoutesManager {
 
     private static final Logger log = Logger.getLogger(CamelRoutesManager.class);
 
     @Autowired
     @Qualifier("camelContext")
-    private SpringCamelContext camelContext;
+    protected SpringCamelContext camelContext;
 
+    private Map<String, RouteDefinition> activeRoutes = new HashMap<>();
 
-    @Value("${twitter.consumerKey}")
-    private String consumerKey;
-
-    @Value("${twitter.consumerSecret}")
-    private String consumerSecret;
-
-    @Value("${twitter.accessToken}")
-    private String accessToken;
-
-    @Value("${twitter.accessTokenSecret}")
-    private String accessTokenSecret;
-
-    public void addRoute(String from, List<String> to, String routeName){
+    public String addRoute(String from, List<String> to, String routeName){
         DynamicRouteBuilder rtbuilder = new DynamicRouteBuilder(from, to, routeName);
         log.info("Adding new route " + from);
         try {
@@ -46,16 +39,33 @@ public class CamelRoutesManager implements InitializingBean {
 
         } catch (Exception e) {
             log.warn("Route build failed", e);
-            log.info("Avail routes:" + camelContext.getRouteDefinitions());
+            log.warn("Avail routes:" + camelContext.getRouteDefinitions());
+        }
+
+        String routeId = rtbuilder.getRouteDefinition().getId();
+        activeRoutes.put(routeId, rtbuilder.getRouteDefinition());
+
+        return routeId;
+    }
+
+    public Collection<String> getRoutes(){
+        return activeRoutes.keySet();
+    }
+
+    public void deleteRoute(String routeId) throws CamelException {
+        if(!getRoutes().contains(routeId)){
+            throw new CamelException(String.format("Route with %s not found.", routeId));
+        } else {
+            try {
+                camelContext.stopRoute(routeId);
+                camelContext.removeRoute(routeId);
+                activeRoutes.remove(routeId);
+            } catch (Exception e) {
+                throw new CamelException(e);
+            }
+
         }
     }
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        TwitterComponent tc = camelContext.getComponent("twitter", TwitterComponent.class);
-        tc.setAccessToken(accessToken);
-        tc.setAccessTokenSecret(accessTokenSecret);
-        tc.setConsumerKey(consumerKey);
-        tc.setConsumerSecret(consumerSecret);
-    }
+
 }

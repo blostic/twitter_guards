@@ -3,6 +3,7 @@ package ui.menu;
 import ui.ContentWrapper;
 import ui.resources.TwitterGuardsIcons;
 import ui.views.CampaignTimelineView;
+import ui.views.CampaignView;
 import ui.views.OverviewView;
 import ui.views.UserManagementView;
 
@@ -69,7 +70,7 @@ public class TwitterHeader extends HorizontalLayout {
 
 			@Override
 			public void layoutClick(LayoutClickEvent event) {
-				contentWrapper.setContent(new UserManagementView());
+				contentWrapper.setContent(new CampaignView("testJKM"));
 				
 			}
 		});

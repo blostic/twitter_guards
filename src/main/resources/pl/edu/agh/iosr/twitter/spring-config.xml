@@ -9,12 +9,17 @@
 
     <import resource="camel/camel-config.xml"/>
     <import resource="ranker-spring-config.xml"/>
+    <import resource="vaadin-spring-integration.xml"/>
 
-    <bean id="camelRoutesManager" class="pl.edu.agh.iosr.twitter.route.CamelRoutesManager"/>
+    <bean id="tweetRoutesManager" class="pl.edu.agh.iosr.twitter.route.spec.TwitterRoutesManager"/>
+    <bean id="facebookRoutesManager" class="pl.edu.agh.iosr.twitter.route.spec.FacebookRoutesManager"/>
 
-    <bean id="toLogProcessor" class="pl.edu.agh.iosr.twitter.processor.TweetToLogProcessor"/>
 
-    <bean id="tweetRankProcessor" class="pl.edu.agh.iosr.twitter.processor.TweetRankProcessor">
+    <bean id="toLogProcessor" class="pl.edu.agh.iosr.twitter.processor.twitter.TweetToLogProcessor"/>
+
+    <bean id="fbToLogProcessor" class="pl.edu.agh.iosr.twitter.processor.facebook.FacebookPostsToLogProcessor"/>
+
+    <bean id="tweetRankProcessor" class="pl.edu.agh.iosr.twitter.processor.twitter.TweetRankProcessor">
         <property name="ranker" ref="def-ranker"/>
     </bean>
 </beans>
