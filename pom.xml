@@ -11,8 +11,6 @@
         <spring.version>4.1.0.RELEASE</spring.version>
         <camel.version>2.15.0</camel.version>
         <log4j.version>1.2.17</log4j.version>
-        <vaadin.version>7.3.7</vaadin.version>
-        <vaadin.plugin.version>${vaadin.version}</vaadin.plugin.version>
         <spring.data.mongo.version>1.7.0.RELEASE</spring.data.mongo.version>
     </properties>
 
@@ -32,6 +30,7 @@
             </snapshots>
         </repository>
     </repositories>
+
     <pluginRepositories>
         <pluginRepository>
             <id>vaadin-snapshots</id>
@@ -179,7 +178,6 @@
             <version>4.12</version>
         </dependency>
 
-        <!-- VAADIN -->
         <dependency>
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-catalina</artifactId>
@@ -187,122 +185,24 @@
             <scope>provided</scope>
         </dependency>
 
-        <dependency>
-            <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-server</artifactId>
-            <version>${vaadin.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-client-compiler</artifactId>
-            <version>${vaadin.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.eclipse.jetty</groupId>
-                    <artifactId>jetty-servlets</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.eclipse.jetty</groupId>
-                    <artifactId>jetty-annotations</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.eclipse.jetty</groupId>
-                    <artifactId>jetty-util</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-client</artifactId>
-            <version>${vaadin.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-push</artifactId>
-            <version>${vaadin.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-themes</artifactId>
-            <version>${vaadin.version}</version>
-        </dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.0</version>
+		</dependency>
 
-        <dependency>
-            <groupId>com.vaadin.tapio</groupId>
-            <artifactId>googlemaps</artifactId>
-            <version>0.9.0</version>
-        </dependency>
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.2.1</version>
+		</dependency>
+
         <!-- MONGODB/MORPHIA -->
 
         <dependency>
             <groupId>org.mongodb.morphia</groupId>
             <artifactId>morphia</artifactId>
             <version>0.108</version>
-
-        </dependency>
-
-        <!-- VAADIN -->
-        <dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>tomcat-catalina</artifactId>
-            <version>8.0.21</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-server</artifactId>
-            <version>${vaadin.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-client-compiler</artifactId>
-            <version>${vaadin.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.eclipse.jetty</groupId>
-                    <artifactId>jetty-servlets</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.eclipse.jetty</groupId>
-                    <artifactId>jetty-annotations</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.eclipse.jetty</groupId>
-                    <artifactId>jetty-util</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-client</artifactId>
-            <version>${vaadin.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-push</artifactId>
-            <version>${vaadin.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-themes</artifactId>
-            <version>${vaadin.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.vaadin.tapio</groupId>
-            <artifactId>googlemaps</artifactId>
-            <version>0.9.0</version>
-        </dependency>
-        <!-- MONGODB/MORPHIA -->
-
-        <dependency>
-            <groupId>org.mongodb.morphia</groupId>
-            <artifactId>morphia</artifactId>
-            <version>0.108</version>
-
         </dependency>
 
         <dependency>
@@ -316,26 +216,6 @@
     <build>
         <finalName>twitter-guards</finalName>
         <plugins>
-
-            <plugin>
-                <groupId>com.vaadin</groupId>
-                <artifactId>vaadin-maven-plugin</artifactId>
-                <version>${vaadin.version}</version>
-                <configuration>
-                    <strict>true</strict>
-                    <force>true</force>
-                    <!-- Enable during development to speed compiling. -->
-                    <!-- <draftCompile>true</draftCompile> <style>DETAILED</style> -->
-                    <!--<userAgents>ie8</userAgents> -->
-                    <!-- <userAgents>gecko1_8</userAgents> -->
-                    <!-- End development options -->
-                    <webappDirectory>src/main/webapp/VAADIN/widgetsets</webappDirectory>
-                    <modules>
-                        <module>twitterguards.AppWidgetSet</module>
-                    </modules>
-                </configuration>
-            </plugin>
-
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
