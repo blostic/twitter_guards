@@ -13,4 +13,6 @@
 
     </camelContext>
 
+    <bean class="pl.edu.agh.iosr.twitter.processor.twitter.TweetRankProcessor"/>
+
 </beans>

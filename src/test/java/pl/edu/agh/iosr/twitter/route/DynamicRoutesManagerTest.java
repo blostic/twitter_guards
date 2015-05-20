@@ -86,6 +86,42 @@ public class DynamicRoutesManagerTest {
         Assert.assertTrue(camelContext.getRoutes().isEmpty());
     }
 
+    @Test
+    @DirtiesContext
+    public void testRouteStop() throws CamelException {
+        String id = manager.addRoute("direct:send", Arrays.asList("mock:mockE1", "mock:mockE2"), "test");
+        ServiceStatus status = camelContext.getRouteStatus(id);
+
+        Assert.assertEquals(true, status.isStarted());
+
+        manager.stopRoute(id);
+        Assert.assertEquals(1, manager.getRoutes().size());
+
+        status = camelContext.getRouteStatus(id);
+
+        Assert.assertEquals(false, status.isStarted());
+    }
+
+    @Test
+    @DirtiesContext
+    public void testRouteResume() throws CamelException {
+        String id = manager.addRoute("direct:send", Arrays.asList("mock:mockE1", "mock:mockE2"), "test");
+        ServiceStatus status = camelContext.getRouteStatus(id);
+        Assert.assertEquals(true, status.isStarted());
+
+        manager.stopRoute(id);
+        Assert.assertEquals(1, manager.getRoutes().size());
+
+        status = camelContext.getRouteStatus(id);
+        Assert.assertEquals(false, status.isStarted());
+
+        manager.startRoute(id);
+
+        status = camelContext.getRouteStatus(id);
+        Assert.assertEquals(true, status.isStarted());
+
+    }
+
     @Test(expected = CamelException.class)
     @DirtiesContext
     public void testRouteDeleteNotFound() throws CamelException {
