@@ -6,6 +6,7 @@ import java.util.*;
 /**
  * Created on 2 Apr, 2015 by Jakub Sloniec.
  */
+@Deprecated
 public class RankerUtils {
     static List<String> declarePositiveWords() {
         return getWordList("positive");

@@ -8,6 +8,7 @@ import java.util.List;
 /**
  * Created on 2 Apr, 2015 by Jakub Sloniec.
  */
+@Deprecated
 public class RankerCore {
     private List<String> positiveWords;
     private List<String> negativeWords;

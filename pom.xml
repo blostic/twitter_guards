@@ -214,6 +214,20 @@
             <version>1.10.19</version>
         </dependency>
 
+        <!-- StanfordNLP -->
+
+        <dependency>
+            <groupId>edu.stanford.nlp</groupId>
+            <artifactId>stanford-corenlp</artifactId>
+            <version>3.5.2</version>
+        </dependency>
+        <dependency>
+            <groupId>edu.stanford.nlp</groupId>
+            <artifactId>stanford-corenlp</artifactId>
+            <version>3.5.2</version>
+            <classifier>models</classifier>
+        </dependency>
+
         <!-- MONGODB/MORPHIA -->
 
         <dependency>
