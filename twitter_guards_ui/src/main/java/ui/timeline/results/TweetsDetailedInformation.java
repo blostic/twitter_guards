@@ -26,7 +26,7 @@ public class TweetsDetailedInformation extends VerticalLayout {
 		
 		addFakeData(tweetsTable);
 		
-		tweetsTable.setPageLength(10);
+		tweetsTable.setPageLength(8);
 		tweetsTable.addStyleName("result-summary-table");
 		addComponent(tweetsTable);
 		tweetsTable.setSizeFull();

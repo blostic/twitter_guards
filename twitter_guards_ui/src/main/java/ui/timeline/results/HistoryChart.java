@@ -69,7 +69,7 @@ public class HistoryChart extends VerticalLayout {
 	        conf.setPlotOptions(plotOptions);
 
 	        conf.addSeries(new ListSeries("Super Positive", 502, 235, 309, 247, 402, 1634, 5268));
-	        conf.addSeries(new ListSeries("positive", 106, 107, 111, 133, 221, 767, 1766));
+	        conf.addSeries(new ListSeries("Positive", 106, 107, 111, 133, 221, 767, 1766));
 	        conf.addSeries(new ListSeries("Neutral", 163, 203, 276, 408, 547, 729, 628));
 	        conf.addSeries(new ListSeries("Negative", 18, 31, 54, 156, 339, 818, 1201));
 	        conf.addSeries(new ListSeries("Super negative", 21, 23, 22, 63, 33, 43, 76));

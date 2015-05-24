@@ -23,7 +23,7 @@ public class UserContentmentChart extends VerticalLayout {
     protected Component getChart() {
         Component ret = createChart();
         ret.setWidth("100%");
-        ret.setHeight("450px");
+        ret.setHeight("650px");
         return ret;
     }
 
@@ -55,7 +55,6 @@ public class UserContentmentChart extends VerticalLayout {
         series.add(new DataSeriesItem("Neutral", 2.0));
         series.add(new DataSeriesItem("Negative", 1.5));
         series.add(new DataSeriesItem("Super negative", 0.5));
-
         series.add(new DataSeriesItem("Unrecognized", 1.0));
 
         chart.drawChart(conf);

@@ -104,3 +104,31 @@
 .result-summary-table .v-table-cell-wrapper .v-label {
 	 text-align: center;	
 }
+
+.selection-combo-box .v-label  {
+	color: #197DE1;
+	font-size: 26px;
+	line-height: 30px;
+	font-weight: normal;
+	fill: #197DE1;
+	width: 867px;
+	text-align: center;
+}
+
+.selection-combo-box  .v-filterselect-input {
+	width: 200px;
+}
+
+.keywords-wrapper-component .v-label {
+	text-align: center;
+}
+
+.keywords-wrapper-component .v-label:FIRST-CHILD {
+	color: #197DE1;
+	font-size: 26px;
+	line-height: 30px;
+	font-weight: normal;
+	fill: #197DE1;
+	text-align: center;
+	
+}
