@@ -1,12 +1,17 @@
 package ui.timeline;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.http.client.ClientProtocolException;
 
 import persistance.campaign.dao.CampaignDao;
 import persistance.campaign.entity.Campaign;
 
 import com.vaadin.ui.VerticalLayout;
+
+import communicator.TwitterGuardsApiWrapper;
 
 public class TimelineComponent extends VerticalLayout {
 

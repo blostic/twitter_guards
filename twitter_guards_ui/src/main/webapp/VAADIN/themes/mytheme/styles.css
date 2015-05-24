@@ -90,3 +90,17 @@
 	border-radius: 7px;
 	min-height: 100%;
 }
+
+
+.result-summary-table .v-table-cell-content {
+	text-align: center;
+	vertical-align: middle;
+}
+
+.result-summary-table .v-table-cell-wrapper {
+	text-align: center !important;
+}
+
+.result-summary-table .v-table-cell-wrapper .v-label {
+	 text-align: center;	
+}

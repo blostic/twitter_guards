@@ -1,7 +1,10 @@
 package ui.timeline.editor;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.http.client.ClientProtocolException;
 
 import persistance.campaign.dao.CampaignDao;
 import persistance.campaign.entity.Campaign;
@@ -17,6 +20,7 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
+import communicator.TwitterGuardsApiWrapper;
 
 public class EditorView extends VerticalLayout {
 
@@ -27,7 +31,7 @@ public class EditorView extends VerticalLayout {
 	
 	private List<EditorStep> steps = new ArrayList<EditorStep>();
 	
-	private Campaign campaingn = new Campaign();
+	private Campaign campaign = new Campaign();
 	
 	private int currentIndex = 0;
 	
@@ -60,7 +64,7 @@ public class EditorView extends VerticalLayout {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				steps.get(currentIndex).updateCampaign(campaingn);
+				steps.get(currentIndex).updateCampaign(campaign);
 				currentIndex += 1;
 				if (currentIndex < steps.size() - 1) {
 					stepsManager.showCommonArrangement();
@@ -93,9 +97,16 @@ public class EditorView extends VerticalLayout {
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				steps.get(currentIndex).updateCampaign(campaingn);
-				CampaignDao.get().save(campaingn);
+				steps.get(currentIndex).updateCampaign(campaign);
+				CampaignDao.get().save(campaign);
 				((TwitterGuardUI)UI.getCurrent()).getContentWrapper().setContent(new TimelineComponent());
+	        	try {
+					new TwitterGuardsApiWrapper().sendHttpRequest(campaign);
+				} catch (ClientProtocolException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		});
 		
