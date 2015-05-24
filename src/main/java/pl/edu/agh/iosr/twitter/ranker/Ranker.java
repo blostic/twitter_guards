@@ -37,7 +37,7 @@ public class Ranker implements IRanker {
 
     static StanfordCoreNLP pipeline;
 
-    public static void init() {
+    public void init() {
         pipeline = new StanfordCoreNLP("MyPropFile.properties");
     }
 
