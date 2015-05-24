@@ -22,6 +22,7 @@ public class Campaign {
 	private String description;
 	private Date startDate;
 	private Date endDate;
+	
 	private List<String> keywords;
 	private Polygon polygon;
 	private Map<Long, Tweet> timeToTweetMap = new HashMap<Long, Tweet>();
@@ -89,6 +90,14 @@ public class Campaign {
 
 	public void setDescription(String description) {
 		this.description = description;
+	} 
+
+	@Override
+	public String toString() {
+		return "Campaign [id=" + id + ", title=" + title + ", description="
+				+ description + ", startDate=" + startDate + ", endDate="
+				+ endDate + ", keywords=" + keywords + ", polygon=" + polygon
+				+ ", timeToTweetMap=" + timeToTweetMap + "]";
 	}
 
 }

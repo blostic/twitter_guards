@@ -30,11 +30,17 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
-		
+
 		<repository>
-		   <id>vaadin-addons</id>
-		   <url>http://maven.vaadin.com/vaadin-addons</url>
+			<id>vaadin-addons</id>
+			<url>http://maven.vaadin.com/vaadin-addons</url>
 		</repository>
+
+		<repository>
+			<id>codehaus</id>
+			<url>http://repository.codehaus.org/org/codehaus</url>
+		</repository>
+		
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
@@ -53,9 +59,15 @@
 	<dependencies>
 
 		<dependency>
-		   <groupId>com.vaadin.addon</groupId>
-		   <artifactId>vaadin-charts</artifactId>
-		   <version>2.0.0</version>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.8.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.vaadin.addon</groupId>
+			<artifactId>vaadin-charts</artifactId>
+			<version>2.0.0</version>
 		</dependency>
 
 		<dependency>
@@ -93,7 +105,7 @@
 			<artifactId>log4j</artifactId>
 			<version>${log4j.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
@@ -137,20 +149,20 @@
 			<groupId>com.vaadin</groupId>
 			<artifactId>vaadin-client-compiler</artifactId>
 			<version>${vaadin.version}</version>
-				   <exclusions>
-	        <exclusion>
-	            <groupId>org.eclipse.jetty</groupId>
-	            <artifactId>jetty-servlets</artifactId>
-	        </exclusion>
-	        <exclusion>
-	            <groupId>org.eclipse.jetty</groupId>
-	            <artifactId>jetty-annotations</artifactId>
-	        </exclusion>
-	        <exclusion>
-	            <groupId>org.eclipse.jetty</groupId>
-	            <artifactId>jetty-util</artifactId>
-	        </exclusion>
-	    </exclusions>
+			<exclusions>
+				<exclusion>
+					<groupId>org.eclipse.jetty</groupId>
+					<artifactId>jetty-servlets</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.eclipse.jetty</groupId>
+					<artifactId>jetty-annotations</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.eclipse.jetty</groupId>
+					<artifactId>jetty-util</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>com.vaadin</groupId>
