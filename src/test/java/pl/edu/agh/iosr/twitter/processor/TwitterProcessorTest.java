@@ -42,7 +42,7 @@ public class TwitterProcessorTest {
     public void init(){
         MockitoAnnotations.initMocks(this);
 
-        Mockito.when(mockedRanker.rank(Mockito.any(Status.class))).thenReturn(12);
+        Mockito.when(mockedRanker.rank(Mockito.any(String.class))).thenReturn(12);
 
         Mockito.when(mockedTweet.getCreatedAt()).thenReturn(new Date(12345));
         Mockito.when(mockedTweet.getText()).thenReturn("mock");

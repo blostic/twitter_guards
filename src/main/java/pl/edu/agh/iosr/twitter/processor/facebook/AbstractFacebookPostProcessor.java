@@ -8,16 +8,16 @@ import org.apache.camel.Processor;
 /**
  * Created by radoslawdyrda on 11.05.2015.
  */
-public abstract class AbstractFacebookProcessor implements Processor {
+public abstract class AbstractFacebookPostProcessor implements Processor {
 
-    public abstract Object doWithPosts(ResponseList<Post> posts, String campaignName);
+    public abstract Object doWithPosts(Post posts, String campaignName);
 
     @Override
     public void process(Exchange exchange) throws Exception {
-        ResponseList<Post> posts = exchange.getIn().getBody(ResponseList.class);
+        Post post = exchange.getIn().getBody(Post.class);
         String campaignName = exchange.getIn().getHeader("routeName", String.class);
 
-        exchange.getOut().setBody(doWithPosts(posts, campaignName));
+        exchange.getOut().setBody(doWithPosts(post, campaignName));
 
     }
 }

@@ -12,12 +12,24 @@
     <import resource="vaadin-spring-integration.xml"/>
 
     <bean id="tweetRoutesManager" class="pl.edu.agh.iosr.twitter.route.spec.TwitterRoutesManager"/>
-    <bean id="facebookRoutesManager" class="pl.edu.agh.iosr.twitter.route.spec.FacebookRoutesManager"/>
 
+    <bean id="facebookRoutesManager" class="pl.edu.agh.iosr.twitter.route.spec.FacebookRoutesManager"/>
 
     <bean id="toLogProcessor" class="pl.edu.agh.iosr.twitter.processor.twitter.TweetToLogProcessor"/>
 
     <bean id="fbToLogProcessor" class="pl.edu.agh.iosr.twitter.processor.facebook.FacebookPostsToLogProcessor"/>
+
+    <bean id="fbCommentsToLogProcessor" class="pl.edu.agh.iosr.twitter.processor.facebook.FacebookCommentToLogProcessor"/>
+
+    <bean id="fbPostRankProcessor" class="pl.edu.agh.iosr.twitter.processor.facebook.FacebookPostRankProcessor">
+        <property name="ranker" ref="def-ranker"/>
+        <property name="commentsProcessor" value="bean:fbCommentRankProcessor"/>
+        <property name="dbEndpoint" value="mongodb:mongoBean?database=twitter-guard&amp;collection=facebookComments&amp;operation=insert"/>
+    </bean>
+
+    <bean id="fbCommentRankProcessor" class="pl.edu.agh.iosr.twitter.processor.facebook.FacebookCommentRankProcessor">
+        <property name="ranker" ref="def-ranker"/>
+    </bean>
 
     <bean id="tweetRankProcessor" class="pl.edu.agh.iosr.twitter.processor.twitter.TweetRankProcessor">
         <property name="ranker" ref="def-ranker"/>

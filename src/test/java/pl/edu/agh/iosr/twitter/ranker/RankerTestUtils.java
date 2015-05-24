@@ -58,7 +58,7 @@ public class RankerTestUtils {
         QueryResult result = twitter.search(query);
 
         for (Status status : result.getTweets()) {
-            int tweetRank = ranker.rank(status);
+            int tweetRank = ranker.rank(status.getText());
 
             System.out.println("rank: " + tweetRank + " | @" + status.getUser().getScreenName() + ":" + status.getText());
         }
@@ -68,7 +68,7 @@ public class RankerTestUtils {
         List<Status> statuses = twitter.getHomeTimeline();
 
         for (Status status : statuses) {
-            int tweetRank = ranker.rank(status);
+            int tweetRank = ranker.rank(status.getText());
             System.out.println("rank: " + tweetRank + " | " + status.getUser().getName() + ":" + status.getText());
         }
     }

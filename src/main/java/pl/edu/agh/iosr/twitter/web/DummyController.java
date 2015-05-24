@@ -59,8 +59,8 @@ public class DummyController {
     @RequestMapping(method = RequestMethod.GET, value = "addFBRoute.htm")
     public String addFBRoute(ModelMap model) {
 
-        String fb = "facebook://searchPosts?query=agh&reading.limit=10&consumer.delay=5000";
-        fbManager.addRoute(fb, Arrays.asList("bean:fbToLogProcessor"), "agh");
+        String fb = "836480573102871";
+        fbManager.addFbPostsRoute(fb, Arrays.asList("bean:fbToLogProcessor"), "agh", null);
         return printWelcome(model);
 
     }

@@ -15,7 +15,7 @@ import twitter4j.Status;
 @ContextConfiguration(locations = {"/spring-test-config.xml"})
 public class RankerTest2 {
 
-    Status tweet = null;
+    String tweet = null;
 
     @Autowired
     IRanker ranker;

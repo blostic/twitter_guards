@@ -8,11 +8,11 @@ import twitter4j.Status;
 
 
 public class Ranker implements IRanker{
-    public int rank(Status tweet) {
-        if (tweet == null) {
+    public int rank(String text) {
+        if (text == null) {
             throw new IllegalArgumentException();
         }
-        String[] words = RankerUtils.getWordListFromText(tweet.getText());
+        String[] words = RankerUtils.getWordListFromText(text);
 
         RankerCore core = new RankerCore();
 

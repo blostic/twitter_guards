@@ -5,6 +5,11 @@ import org.apache.camel.component.facebook.config.FacebookConfiguration;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import pl.edu.agh.iosr.twitter.route.CamelRoutesManager;
+import pl.edu.agh.iosr.twitter.route.spec.conf.FacebookRouteConfiguration;
+import pl.edu.agh.iosr.twitter.route.spec.conf.TwitterRouteConfiguration;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class FacebookRoutesManager extends CamelRoutesManager implements InitializingBean{
 
@@ -15,8 +20,8 @@ public class FacebookRoutesManager extends CamelRoutesManager implements Initial
     @Value("${facebook.oAuthAppSecret}")
     private String oAuthAppSecret;
 
-    @Value("${facebook.oAuthAccessToken}")
-    private String oAuthAccessToken;
+//    @Value("${facebook.oAuthAccessToken}")
+//    private String oAuthAccessToken;
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -24,8 +29,33 @@ public class FacebookRoutesManager extends CamelRoutesManager implements Initial
         FacebookConfiguration conf = new FacebookConfiguration();
         conf.setOAuthAppId(oAuthAppId);
         conf.setOAuthAppSecret(oAuthAppSecret);
-        conf.setOAuthAccessToken(oAuthAccessToken);
+//        conf.setOAuthAccessToken(oAuthAccessToken);
 
         fb.setConfiguration(conf);
+    }
+
+    public String addFbPostsRoute(String pageId, List<String> to, String routeName, String accessToken) {
+        String from = "facebook://getPromotablePosts?pageId=" + pageId
+                + "&oAuthAppId=" + oAuthAppId
+                + "&oAuthAppSecret=" + oAuthAppSecret
+                //+ "&oAuthAccessToken=" + (accessToken != null ? accessToken : oAuthAccessToken)
+                + "&consumer.delay=5000";
+        return super.addRoute(from, to, routeName);
+    }
+
+    public String addFbCommentsRoute(String postId, List<String> to, String routeName, String accessToken) {
+        String from = "facebook://getPostComments?postId=" + postId
+                + "&oAuthAppId=" + oAuthAppId
+                + "&oAuthAppSecret=" + oAuthAppSecret
+                //+ "&oAuthAccessToken=" + (accessToken != null ? accessToken : oAuthAccessToken)
+                + "&consumer.delay=30000";
+        return super.addRoute(from, to, routeName);
+    }
+
+    public String addFbPostsRouteWithRank(FacebookRouteConfiguration configuration){
+        String ranker = "bean:" + configuration.getRankerBean();
+        String dbEndpoint = "mongodb:mongoBean?database=twitter-guard&collection=" + configuration.getDbCollection() + "&operation=insert";
+
+        return addFbPostsRoute(configuration.getPageId(), Arrays.asList(ranker, dbEndpoint), configuration.getRouteName(), null);
     }
 }

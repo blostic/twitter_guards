@@ -3,17 +3,9 @@ package pl.edu.agh.iosr.twitter.route.spec.conf;
 
 import java.io.Serializable;
 
-public class TwitterRouteConfiguration implements Serializable {
-
-    private String routeName;
+public class TwitterRouteConfiguration extends RouteConfiguration {
 
     private String pollingText;
-
-    private String rankerBean;
-
-    private String dbName;
-
-    private String dbCollection;
 
     public TwitterRouteConfiguration(String routeName, String pollingText, String rankerBean, String dbName, String dbCollection) {
         this.routeName = routeName;
@@ -26,23 +18,8 @@ public class TwitterRouteConfiguration implements Serializable {
     public TwitterRouteConfiguration() {
     }
 
-    public String getRouteName() {
-        return routeName;
-    }
-
     public String getPollingText() {
         return pollingText;
     }
 
-    public String getRankerBean() {
-        return rankerBean;
-    }
-
-    public String getDbName() {
-        return dbName;
-    }
-
-    public String getDbCollection() {
-        return dbCollection;
-    }
 }

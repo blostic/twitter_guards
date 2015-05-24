@@ -18,7 +18,7 @@ import static org.junit.Assert.assertTrue;
 @ContextConfiguration(locations = {"/spring-test-config.xml"})
 public class RankerTest1 {
 
-    Status tweet;
+    String tweet;
     Integer rank;
 
     @Autowired
@@ -30,7 +30,7 @@ public class RankerTest1 {
         Query query = new Query("IET");
 
         QueryResult result = twitter.search(query);
-        tweet = result.getTweets().get(0);
+        tweet = result.getTweets().get(0).getText();
     }
 
 
