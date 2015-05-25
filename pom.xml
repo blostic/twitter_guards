@@ -40,6 +40,10 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
+        <repository>
+            <id>codehaus</id>
+            <url>http://repository.codehaus.org/org/codehaus</url>
+        </repository>
     </repositories>
 
     <pluginRepositories>
@@ -233,7 +237,7 @@
         <dependency>
             <groupId>org.mongodb.morphia</groupId>
             <artifactId>morphia</artifactId>
-            <version>0.108</version>
+            <version>1.0.0-rc0</version>
         </dependency>
 
         <dependency>

@@ -18,8 +18,9 @@ public class Tweet {
 	private Date creationTime;
 	private String userId; // user.id_str
 	private String tweeterTweetId; // id_str
-	private Emotion emotion; 
-	
+	private Emotion emotion;
+	private String routeName;
+
 	public ObjectId getId() {
 		return id;
 	}
@@ -76,4 +77,12 @@ public class Tweet {
 		this.emotion = emotion;
 	}
 
+
+	public String getRouteName() {
+		return routeName;
+	}
+
+	public void setRouteName(String routeName) {
+		this.routeName = routeName;
+	}
 }
