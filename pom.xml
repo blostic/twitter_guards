@@ -40,6 +40,10 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
+        <repository>
+            <id>codehaus</id>
+            <url>http://repository.codehaus.org/org/codehaus</url>
+        </repository>
     </repositories>
 
     <pluginRepositories>
@@ -214,12 +218,26 @@
             <version>1.10.19</version>
         </dependency>
 
+        <!-- StanfordNLP -->
+
+        <dependency>
+            <groupId>edu.stanford.nlp</groupId>
+            <artifactId>stanford-corenlp</artifactId>
+            <version>3.5.2</version>
+        </dependency>
+        <dependency>
+            <groupId>edu.stanford.nlp</groupId>
+            <artifactId>stanford-corenlp</artifactId>
+            <version>3.5.2</version>
+            <classifier>models</classifier>
+        </dependency>
+
         <!-- MONGODB/MORPHIA -->
 
         <dependency>
             <groupId>org.mongodb.morphia</groupId>
             <artifactId>morphia</artifactId>
-            <version>0.108</version>
+            <version>1.0.0-rc0</version>
         </dependency>
 
         <dependency>
