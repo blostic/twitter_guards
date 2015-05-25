@@ -7,6 +7,7 @@ import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.sentiment.SentimentCoreAnnotations.SentimentAnnotatedTree;
 import edu.stanford.nlp.trees.Tree;
 import edu.stanford.nlp.util.CoreMap;
+import org.springframework.beans.factory.InitializingBean;
 import pl.edu.agh.iosr.twitter.ranker.IRanker;
 import pl.edu.agh.iosr.twitter.ranker.RankerCore;
 import pl.edu.agh.iosr.twitter.ranker.RankerUtils;
@@ -18,7 +19,7 @@ import twitter4j.Status;
  */
 
 
-public class Ranker implements IRanker {
+public class Ranker implements IRanker, InitializingBean {
 
     @Deprecated
     public int oldRank(Status tweet) {
@@ -35,7 +36,7 @@ public class Ranker implements IRanker {
         return positiveRank - negativeRank;
     }
 
-    static StanfordCoreNLP pipeline;
+    private StanfordCoreNLP pipeline;
 
     public void init() {
         pipeline = new StanfordCoreNLP("stanfordnlp.properties");
@@ -65,5 +66,10 @@ public class Ranker implements IRanker {
             }
         }
         return mainSentiment;
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        init();
     }
 }
