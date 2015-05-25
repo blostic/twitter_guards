@@ -1,15 +1,12 @@
 package pl.edu.agh.iosr.twitter.model;
 
-import org.bson.types.ObjectId;
-import org.mongodb.morphia.geo.Point;
-import org.mongodb.morphia.query.Shape;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-import pl.edu.agh.iosr.twitter.dto.TweetDTO;
-
-
 import java.io.Serializable;
 import java.util.Date;
+
+import org.bson.types.ObjectId;
+import org.mongodb.morphia.geo.Point;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * Created by radek on 25.04.15.
@@ -18,7 +15,9 @@ import java.util.Date;
 @Document(collection = "tweets")
 public class Tweet implements Serializable{
 
-    @Id
+	private static final long serialVersionUID = 1L;
+
+	@Id
     private ObjectId id;
 
     private String text;
@@ -28,9 +27,11 @@ public class Tweet implements Serializable{
     private String tweeterTweetId; // id_str
     private Emotion emotion;
     private String routeName;
+	private String url;
 
-    public Tweet(String text, Point position, Date creationTime, String userId, String tweeterTweetId, Emotion emotion, String routeName) {
+    public Tweet(String text, String url, Point position, Date creationTime, String userId, String tweeterTweetId, Emotion emotion, String routeName) {
         this.text = text;
+        this.url = url;
         this.position = position;
         this.creationTime = creationTime;
         this.userId = userId;
@@ -104,4 +105,12 @@ public class Tweet implements Serializable{
     public void setRouteName(String routeName) {
         this.routeName = routeName;
     }
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
 }
