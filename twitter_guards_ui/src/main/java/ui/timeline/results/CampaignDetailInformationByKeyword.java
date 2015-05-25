@@ -23,11 +23,11 @@ public class CampaignDetailInformationByKeyword extends VerticalLayout {
 
 	private void buildCharts() {
 		KeywordSelect keywordSelect = new KeywordSelect(campaign, this);
-		UserContentmentChart userContentmentChart = new UserContentmentChart();
+		UserContentmentChart userContentmentChart = new UserContentmentChart(campaign);
 		HorizontalLayout firstLine = new HorizontalLayout(keywordSelect, userContentmentChart);
 		firstLine.setSizeFull();
 		firstLine.setComponentAlignment(keywordSelect, Alignment.MIDDLE_CENTER);
-		HistoryChart historyChart = new HistoryChart();
+		HistoryChart historyChart = new HistoryChart(campaign);
 		addComponents(firstLine, historyChart);
 	}
 
