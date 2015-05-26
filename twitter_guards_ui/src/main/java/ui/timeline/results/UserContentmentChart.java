@@ -12,6 +12,8 @@ import com.vaadin.addon.charts.model.Labels;
 import com.vaadin.addon.charts.model.PlotOptionsPie;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.VerticalLayout;
+import persistance.tweets.dao.TweetDao;
+import persistance.tweets.entity.Emotion;
 
 public class UserContentmentChart extends VerticalLayout {
 
@@ -31,7 +33,7 @@ public class UserContentmentChart extends VerticalLayout {
         return ret;
     }
 
-    public static Chart createChart() {
+    public Chart createChart() {
         Chart chart = new Chart(ChartType.PIE);
 
         Configuration conf = chart.getConfiguration();
@@ -48,18 +50,18 @@ public class UserContentmentChart extends VerticalLayout {
         conf.setPlotOptions(plotOptions);
 
         DataSeries series = new DataSeries();
-        series.add(new DataSeriesItem("Super positive", 1.5));
-        
-        DataSeriesItem distinct = new DataSeriesItem("Positive", 3.5);
+
+        TweetDao dao = TweetDao.get();
+
+        DataSeriesItem distinct = new DataSeriesItem("Positive", dao.getTweets(campaign.getTitle(), campaign.getKeywords(), Emotion.POSITIVE).size());
         distinct.setSliced(true);
         distinct.setSelected(true);
         series.add(distinct);
         conf.setSeries(series);
 
-        series.add(new DataSeriesItem("Neutral", 2.0));
-        series.add(new DataSeriesItem("Negative", 1.5));
-        series.add(new DataSeriesItem("Super negative", 0.5));
-        series.add(new DataSeriesItem("Unrecognized", 1.0));
+        series.add(new DataSeriesItem("Neutral", dao.getTweets(campaign.getTitle(), campaign.getKeywords(), Emotion.NEUTRAL).size()));
+        series.add(new DataSeriesItem("Negative", dao.getTweets(campaign.getTitle(), campaign.getKeywords(), Emotion.NEGATIVE).size()));
+        series.add(new DataSeriesItem("Unrecognized", dao.getTweets(campaign.getTitle(), campaign.getKeywords(), Emotion.UNRECOGNIZED).size()));
 
         chart.drawChart(conf);
 

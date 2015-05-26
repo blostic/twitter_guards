@@ -5,7 +5,7 @@ import persistance.campaign.entity.Campaign;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.VerticalLayout;
 
-public class ResultsTabSheet extends VerticalLayout {
+public class 	ResultsTabSheet extends VerticalLayout {
 
 	private static final long serialVersionUID = 1L;
 
