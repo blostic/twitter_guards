@@ -1,5 +1,6 @@
 package ui.timeline.results;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.Map.Entry;
 
@@ -29,7 +30,7 @@ public class TweetsDetailedInformation extends VerticalLayout {
 		tweetsTable.addContainerProperty("Score",  Emotion.class, null);
 		
 //		addFakeData();
-		getDataForCampaign(campaign);
+//		getDataForCampaign(campaign);
 		
 		//addFakeData(tweetsTable);
 		addTweets(tweetsTable, campaign);
@@ -68,7 +69,7 @@ public class TweetsDetailedInformation extends VerticalLayout {
 						+ " dolor. Donec eget tincidunt felis, ac mattis sem."
 						+ " Nulla ac urna at nisl laoreet");
 			 Label linkLabel = new Label("<a href='http://www.google.com'>www.google.com</a>", ContentMode.HTML);
-			 table.addItem(new Object[]{"Kaczor", commentsField, new Date(), "(123.23 lat, 123 lot)", linkLabel, Emotion.SUPER_NEGATIVE}, i);
+			 tweetsTable.addItem(new Object[]{"Kaczor", commentsField, new Date(), "(123.23 lat, 123 lot)", linkLabel, Emotion.SUPER_NEGATIVE}, i);
 		}
 	}
 
