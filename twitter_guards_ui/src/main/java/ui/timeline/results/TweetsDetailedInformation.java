@@ -1,17 +1,19 @@
 package ui.timeline.results;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.Map.Entry;
 
 import persistance.campaign.entity.Campaign;
+import persistance.tweets.dao.TweetDao;
 import persistance.tweets.entity.Emotion;
-import persistance.tweets.entity.Tweet;
 
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.VerticalLayout;
+import persistance.tweets.entity.Tweet;
 
 public class TweetsDetailedInformation extends VerticalLayout {
 
@@ -28,8 +30,11 @@ public class TweetsDetailedInformation extends VerticalLayout {
 		tweetsTable.addContainerProperty("Score",  Emotion.class, null);
 		
 //		addFakeData();
-		getDataForCampaign(campaign);
+//		getDataForCampaign(campaign);
 		
+		//addFakeData(tweetsTable);
+		addTweets(tweetsTable, campaign);
+
 		tweetsTable.setPageLength(8);
 		tweetsTable.addStyleName("result-summary-table");
 		addComponent(tweetsTable);
@@ -65,6 +70,27 @@ public class TweetsDetailedInformation extends VerticalLayout {
 						+ " Nulla ac urna at nisl laoreet");
 			 Label linkLabel = new Label("<a href='http://www.google.com'>www.google.com</a>", ContentMode.HTML);
 			 tweetsTable.addItem(new Object[]{"Kaczor", commentsField, new Date(), "(123.23 lat, 123 lot)", linkLabel, Emotion.SUPER_NEGATIVE}, i);
+		}
+	}
+
+	private void addTweets(Table table, Campaign campaign){
+		Collection<Tweet> tweets = TweetDao.get().getTweets(campaign.getTitle(), campaign.getKeywords());
+		System.out.println(tweets.size());
+		int i = 0;
+		for(Tweet tweet : tweets){
+			TextArea commentsField = new TextArea();
+			commentsField.setWidth("100%");
+			commentsField.setValue(tweet.getText());
+			Label linkLabel = new Label("<a href='https://twitter.com/statuses/" + tweet.getTweeterTweetId() + "'>Go to tweet</a>", ContentMode.HTML);
+			table.addItem(new Object[]{
+				tweet.getRouteName().split("_")[1],
+					commentsField,
+					tweet.getCreationTime(),
+					tweet.getPosition().toString(),
+					linkLabel,
+					tweet.getEmotion()
+			}, i);
+			i++;
 		}
 	}
 

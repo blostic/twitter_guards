@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * Created by radek on 25.04.15.
  */
 
-@Document(collection = "tweets")
+@Document(collection = "Tweet")
 public class Tweet implements Serializable{
 
 	private static final long serialVersionUID = 1L;
