@@ -4,7 +4,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import persistance.campaign.entity.Campaign;
 
 import com.vaadin.addon.charts.Chart;
@@ -21,16 +25,21 @@ import com.vaadin.addon.charts.model.XAxis;
 import com.vaadin.addon.charts.model.YAxis;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.VerticalLayout;
+import persistance.tweets.dao.TweetDao;
+import persistance.tweets.entity.Emotion;
 
 public class HistoryChart extends VerticalLayout {
 
 	private static final long serialVersionUID = 1L;
 
+	private Campaign campaign;
+
 	public HistoryChart(Campaign campaign) {
+		this.campaign = campaign;
 		addComponent(getChart());
 	}
 	
-		public String getDateInCorrectFormat(Date date){
+	public String getDateInCorrectFormat(Date date){
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		return sdf.format(date);
 	}
@@ -44,12 +53,16 @@ public class HistoryChart extends VerticalLayout {
 
 	        XAxis xAxis = new XAxis();
 	        xAxis.setTickmarkPlacement(TickmarkPlacement.ON);
-	        
-	        ArrayList<String> list = new ArrayList<String>();
-	        for (int i = 7; i > 0; i--) {				
+
+			int daysNumber = Days.daysBetween(new DateTime(campaign.getStartDate()), new DateTime(new Date())).getDays();
+
+			ArrayList<String> list = new ArrayList<String>();
+			List<Date> dateList = new ArrayList<>();
+	        for (int i = daysNumber; i >= 0; i--) {
 	        	Calendar c = Calendar.getInstance();
 	        	c.setTime(new Date());
 	        	c.add(Calendar.DATE, - i);
+				dateList.add(c.getTime());
 	        	list.add(getDateInCorrectFormat(c.getTime()));
 			}
 	        xAxis.setCategories(list.toArray(new String[list.size()]));
@@ -70,11 +83,20 @@ public class HistoryChart extends VerticalLayout {
 	        plotOptions.setMarker(marker);
 	        conf.setPlotOptions(plotOptions);
 
-	        conf.addSeries(new ListSeries("Super Positive", 502, 235, 309, 247, 402, 1634, 5268));
-	        conf.addSeries(new ListSeries("Positive", 106, 107, 111, 133, 221, 767, 1766));
-	        conf.addSeries(new ListSeries("Neutral", 163, 203, 276, 408, 547, 729, 628));
-	        conf.addSeries(new ListSeries("Negative", 18, 31, 54, 156, 339, 818, 1201));
-	        conf.addSeries(new ListSeries("Super negative", 21, 23, 22, 63, 33, 43, 76));
+			TweetDao dao = TweetDao.get();
+			ListSeries positiveData = new ListSeries("Positive");
+			positiveData.setData(dateList.stream().map(date -> dao.getTweets(campaign.getTitle(), campaign.getKeywords(), date, Emotion.POSITIVE).size()).collect(Collectors.toList()));
+			ListSeries neutralData = new ListSeries("Neutral");
+			neutralData.setData(dateList.stream().map(date -> dao.getTweets(campaign.getTitle(), campaign.getKeywords(), date, Emotion.NEUTRAL).size()).collect(Collectors.toList()));
+			ListSeries negativeData = new ListSeries("Negative");
+			negativeData.setData(dateList.stream().map(date -> dao.getTweets(campaign.getTitle(), campaign.getKeywords(), date, Emotion.NEGATIVE).size()).collect(Collectors.toList()));
+
+		System.out.println(negativeData.getData());
+//	        conf.addSeries(new ListSeries("Super Positive", 502, 235, 309, 247, 402, 1634, 5268));
+	        conf.addSeries(positiveData);
+	        conf.addSeries(neutralData);
+			conf.addSeries(negativeData);
+//	        conf.addSeries(new ListSeries("Super negative", 21, 23, 22, 63, 33, 43, 76));
 
 	        chart.drawChart(conf);
 
