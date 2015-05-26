@@ -20,7 +20,8 @@ public class Tweet {
 	private String tweeterTweetId; // id_str
 	private Emotion emotion;
 	private String routeName;
-
+	private String url;
+	
 	public ObjectId getId() {
 		return id;
 	}
@@ -84,5 +85,13 @@ public class Tweet {
 
 	public void setRouteName(String routeName) {
 		this.routeName = routeName;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 }

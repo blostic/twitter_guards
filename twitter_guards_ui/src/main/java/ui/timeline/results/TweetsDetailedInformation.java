@@ -1,7 +1,7 @@
 package ui.timeline.results;
 
-import java.util.Collection;
 import java.util.Date;
+import java.util.Map.Entry;
 
 import persistance.campaign.entity.Campaign;
 import persistance.tweets.dao.TweetDao;
@@ -17,15 +17,19 @@ import persistance.tweets.entity.Tweet;
 public class TweetsDetailedInformation extends VerticalLayout {
 
 	private static final long serialVersionUID = 1L;
+	private Table tweetsTable;
 
 	public TweetsDetailedInformation(Campaign campaign) {
-		Table tweetsTable = new Table();
+		tweetsTable = new Table();
 		tweetsTable.addContainerProperty("Keyword", String.class, null);
 		tweetsTable.addContainerProperty("Tweet Text",  TextArea.class, null);
 		tweetsTable.addContainerProperty("Date",  Date.class, null);
 		tweetsTable.addContainerProperty("Location",  String.class, null);
 		tweetsTable.addContainerProperty("Link to post",  Label.class, null);
 		tweetsTable.addContainerProperty("Score",  Emotion.class, null);
+		
+//		addFakeData();
+		getDataForCampaign(campaign);
 		
 		//addFakeData(tweetsTable);
 		addTweets(tweetsTable, campaign);
@@ -36,7 +40,23 @@ public class TweetsDetailedInformation extends VerticalLayout {
 		tweetsTable.setSizeFull();
 	}
 	
-	private void addFakeData(Table table) {
+	public void getDataForCampaign(Campaign campaign) {
+		int i = 0;
+		for(Entry<Long, Tweet> tweetEntry: campaign.getTimeToTweetMap().entrySet()) {
+			Tweet tweet = tweetEntry.getValue(); 
+			TextArea commentsField = new TextArea();
+			 commentsField.setRows(5);
+			 commentsField.setWidth("100%");
+			 commentsField.setValue(tweet.getText());
+			 Label linkLabel = new Label("<a href='" + tweet.getUrl() + "'>" + tweet.getUrl() + "</a>", ContentMode.HTML);
+			 tweetsTable.addItem(new Object[]{tweet.getRouteName(), commentsField, 
+					 new Date(tweetEntry.getKey()), tweet.getPosition().toString(), 
+					 linkLabel, tweet.getEmotion()}, i);
+			 i++;
+		}
+	}
+	
+	private void addFakeData() {
 		for (int i = 0; i < 100; i++) {
 			 TextArea commentsField = new TextArea();
 			 commentsField.setRows(5);

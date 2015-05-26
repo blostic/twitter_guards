@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import persistance.campaign.entity.Campaign;
+
 import com.vaadin.addon.charts.Chart;
 import com.vaadin.addon.charts.model.ChartType;
 import com.vaadin.addon.charts.model.Configuration;
@@ -24,7 +26,7 @@ public class HistoryChart extends VerticalLayout {
 
 	private static final long serialVersionUID = 1L;
 
-	public HistoryChart() {
+	public HistoryChart(Campaign campaign) {
 		addComponent(getChart());
 	}
 	

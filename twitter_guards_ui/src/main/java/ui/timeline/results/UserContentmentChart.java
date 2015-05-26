@@ -1,5 +1,7 @@
 package ui.timeline.results;
 
+import persistance.campaign.entity.Campaign;
+
 import com.vaadin.addon.charts.Chart;
 import com.vaadin.addon.charts.model.ChartType;
 import com.vaadin.addon.charts.model.Configuration;
@@ -14,8 +16,10 @@ import com.vaadin.ui.VerticalLayout;
 public class UserContentmentChart extends VerticalLayout {
 
 	private static final long serialVersionUID = 1L;
+	private Campaign campaign;
 
-	public UserContentmentChart() {
+	public UserContentmentChart(Campaign campaign) {
+		this.campaign = campaign;
 		Chart chart = createChart();
 		addComponent(chart);
 	}
