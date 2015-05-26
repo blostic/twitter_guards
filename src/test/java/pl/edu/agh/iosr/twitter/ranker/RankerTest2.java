@@ -5,7 +5,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import twitter4j.Status;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created on 2 Apr, 2015 by Jakub Sloniec.
@@ -15,14 +16,13 @@ import twitter4j.Status;
 @ContextConfiguration(locations = {"/spring-test-config.xml"})
 public class RankerTest2 {
 
-    String tweet = null;
-
     @Autowired
     IRanker ranker;
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testSalutationMessage() {
         System.out.println("RankerTest2");
-        ranker.rank(tweet);
+        String nullString = null;
+        assertTrue(ranker.rank(nullString) == 0);
     }
 }
