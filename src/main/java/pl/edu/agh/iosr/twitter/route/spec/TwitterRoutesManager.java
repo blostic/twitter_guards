@@ -33,6 +33,9 @@ public class TwitterRoutesManager extends CamelRoutesManager implements Initiali
     @Autowired
     private MongoTemplate mongoTemplate;
 
+    @Value("${mongodb.dbname}")
+    private String dbName;
+
     public String addPollingTwitterRoute(String pollText, List<String> to, String routeName){
         String from = "twitter://search?type=polling&delay=2&keywords=" + pollText;
         return addRoute(from, to, routeName);
@@ -40,9 +43,9 @@ public class TwitterRoutesManager extends CamelRoutesManager implements Initiali
 
     public String addPollingTwitterRouteWithRank(TwitterRouteConfiguration configuration){
         String ranker = "bean:" + configuration.getRankerBean();
-        String dbEndpoint = "mongodb:mongoBean?database=twitter-guard&collection=" + configuration.getDbCollection() + "&operation=insert";
+        String dbEndpoint = "mongodb:mongoBean?database=" + dbName + "&collection=" + configuration.getDbCollection() + "&operation=insert";
         mongoTemplate.insert(new TwitterCampaign(configuration.getRouteName(), configuration));
-        return addPollingTwitterRoute(configuration.getPollingText(), Arrays.asList(ranker, dbEndpoint), configuration.getRouteName());
+        return addPollingTwitterRoute(configuration.getPollingText(), Arrays.asList(ranker, dbEndpoint), configuration.getRouteName() + "_" + configuration.getPollingText());
     }
 
     @Override

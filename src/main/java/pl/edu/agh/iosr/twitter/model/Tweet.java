@@ -15,7 +15,7 @@ import java.util.Date;
  * Created by radek on 25.04.15.
  */
 
-@Document(collection = "tweets")
+@Document(collection = "Tweet")
 public class Tweet implements Serializable{
 
     @Id

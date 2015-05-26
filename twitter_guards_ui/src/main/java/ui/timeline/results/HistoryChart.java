@@ -28,7 +28,7 @@ public class HistoryChart extends VerticalLayout {
 		addComponent(getChart());
 	}
 	
-	public String getDateInCorrectFormat(Date date){
+		public String getDateInCorrectFormat(Date date){
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		return sdf.format(date);
 	}

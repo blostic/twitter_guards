@@ -47,7 +47,7 @@ public class TwitterCampaignController {
         if(StringUtils.isEmpty(configuration.getCamapignName())){
             return new ResponseEntity<>("Campaign name not provided", HttpStatus.BAD_REQUEST);
         }
-        if(StringUtils.isEmpty(configuration.getPollingText())){
+        if(configuration.getPollingText().isEmpty()){
             return new ResponseEntity<>("Pooling text not provided", HttpStatus.BAD_REQUEST);
         }
 
@@ -58,13 +58,16 @@ public class TwitterCampaignController {
             return new ResponseEntity<>("Campaign with given name already exists", HttpStatus.BAD_REQUEST);
         }
 
-        TwitterRouteConfiguration routeConfiguration = new TwitterRouteConfiguration(
-                configuration.getCamapignName(),
-                configuration.getPollingText(),
-                "tweetRankProcessor", null, "tweets"
-        );
+        for(String pollingText : configuration.getPollingText()) {
 
-        manager.addPollingTwitterRouteWithRank(routeConfiguration);
+            TwitterRouteConfiguration routeConfiguration = new TwitterRouteConfiguration(
+                    configuration.getCamapignName(),
+                    pollingText,
+                    "tweetRankProcessor", null, "Tweet"
+            );
+
+            manager.addPollingTwitterRouteWithRank(routeConfiguration);
+        }
 
         return ResponseEntity.ok().build();
 
