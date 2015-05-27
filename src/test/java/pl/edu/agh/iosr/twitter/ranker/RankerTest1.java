@@ -6,7 +6,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import twitter4j.*;
 
 import static org.junit.Assert.assertTrue;
 
@@ -18,28 +17,33 @@ import static org.junit.Assert.assertTrue;
 @ContextConfiguration(locations = {"/spring-test-config.xml"})
 public class RankerTest1 {
 
-    String tweet;
-    Integer rank;
-
     @Autowired
-    IRanker ranker;
+    Ranker ranker;
+
+    String negativeText;
+    String neutralText;
+    String positiveText;
+
 
     @Before
-    public void prepare() throws TwitterException {
-        Twitter twitter = RankerTestUtils.getTwitterInstance();
-        Query query = new Query("IET");
-
-        QueryResult result = twitter.search(query);
-        tweet = result.getTweets().get(0).getText();
+    public void prepare() {
+        negativeText = "I feel bad";
+        neutralText = "I feel normal";
+        positiveText = "I feel great";
     }
 
 
     @Test
     public void test() {
-        System.out.println("RankerTest1");
-        rank = ranker.rank("very bad");
-        System.out.println(rank);
-        assertTrue(rank instanceof Integer);
+
+        int negativeRank = ranker.rank(negativeText);
+        assertTrue(negativeRank == 1);
+
+        int neutralRank = ranker.rank(neutralText);
+        assertTrue(neutralRank == 2);
+
+        int positiveRank = ranker.rank(positiveText);
+        assertTrue(positiveRank == 3);
 
     }
 }
