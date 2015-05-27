@@ -14,7 +14,7 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"/spring-test-config.xml"})
-public class RankerTest3 {
+public class Ranker3Test {
 
     @Autowired
     IRanker ranker;
