@@ -1,6 +1,5 @@
 package ui.test;
 
-import java.util.Date;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -15,8 +14,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import persistance.DbsManager;
-import persistance.campaign.dao.CampaignDao;
-import persistance.campaign.entity.Campaign;
+import persistance.user.dao.UserDao;
+import persistance.user.entity.User;
 
 public class UserCreationTest extends TestCase {
 
@@ -54,48 +53,37 @@ public class UserCreationTest extends TestCase {
 		driver.manage().window().maximize();		
 		
 		Thread.sleep(1000);
-		retryUntilAttached("twitter-timeline-icon").click();
-		WebElement element = retryUntilAttached("new-campaign-component");
+		retryUntilAttached("user-management-icon").click();
+		WebElement element = null;
+
+		element = retryUntilAttached("user-name-text-field");
 		assertNotNull(element);
-		element.click();
+		element.sendKeys("Poldek");
 
-		element = retryUntilAttached("campaign-title-text-field");
+		element = retryUntilAttached("user-surname-text-field");
 		assertNotNull(element);
-		element.sendKeys("Kampania-testowa");
+		element.sendKeys("Banan");
 
-		element = retryUntilAttached("campaign-description-text-field");
-		assertNotNull(element);
-		element.sendKeys("Kampania-testowa-opis");
+		element = retryUntilAttached("user-email-text-field");
+		element.sendKeys("poldek.banan@gmail.com");
+		
+		element = retryUntilAttached("user-password-text-field");
+		element.sendKeys("ala123");
+		
+		element = retryUntilAttached("user-retyped-text-field");
+		element.sendKeys("ala123");
+		
+		retryUntilAttached("user-save-button").click();
 
-		retryUntilAttached("campaign-next-button").click();
-
-		element = retryUntilAttached("google-map");
-		assertNotNull(element);
-
-		retryUntilAttached("campaign-next-button").click();
-
-		retryUntilAttached("keyword-specification-text-field").sendKeys("ala");
-		retryUntilAttached("add-keyword-to-list-button").click();
-		retryUntilAttached("keyword-specification-text-field")
-				.sendKeys("Wania");
-		retryUntilAttached("add-keyword-to-list-button").click();
-		retryUntilAttached("keyword-specification-text-field").sendKeys(
-				"Malinka");
-		retryUntilAttached("add-keyword-to-list-button").click();
-		retryUntilAttached("keyword-specification-text-field").sendKeys(
-				"dziewczynka");
-		retryUntilAttached("add-keyword-to-list-button").click();
-		retryUntilAttached("campaign-finish-button").click();
-		boolean campaignCreated = false;
-		for (Campaign campaign : CampaignDao.get().getAll()) {
-			long timeDiff= new Date().getTime() - campaign.getStartDate().getTime();
-			if (campaign.getTitle().equals("Kampania-testowa") && timeDiff > 0 && timeDiff < 10000) {
-				campaignCreated = true;
+		boolean userCreated = false;
+		for (User user: UserDao.get().getAll()) {
+			if (user.getEmail().equals("poldek.banan@gmail.com")) {
+				userCreated = true;
 				break;
 			}
 		}
 		
-		assertTrue("New campaign created", campaignCreated);
+		assertTrue("New campaign created", userCreated);
 	}
 
 	@After

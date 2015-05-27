@@ -32,15 +32,25 @@ public class UserManagementView extends TwitterGuardsView{
 		VerticalLayout contentWrapper = new VerticalLayout();
 		
 		nameTextField = new CustomeTextField("Name", "Type your name...");
+		nameTextField.getTextField().setId("user-name-text-field");
+		
 		surnameTextField = new CustomeTextField("Surname", "Type your surname...");		
+		surnameTextField.getTextField().setId("user-surname-text-field");
+		
 		emailTextField = new CustomeTextField("Email", "Type your email...");
+		emailTextField.getTextField().setId("user-email-text-field");
+		
 		password = new CustomePasswordField("Password", "Type your password...");
+		password.getTextField().setId("user-password-text-field");
+		
 		retypePassword = new CustomePasswordField("Retype passoword", "Retype you password...");
+		retypePassword.getTextField().setId("user-retyped-text-field");
 		
 		contentWrapper.addComponents(nameTextField, surnameTextField, emailTextField, password, retypePassword);
 		alignToRight(contentWrapper, nameTextField, surnameTextField, emailTextField, password, retypePassword);
-		saveButton = new Button("Save");
 		
+		saveButton = new Button("Save");
+		saveButton.setId("user-save-button");
 		saveButton.addStyleName("no-default-style");
 		saveButton.addStyleName("good-looking-button");
 		saveButton.addStyleName("add-keyword-button");
