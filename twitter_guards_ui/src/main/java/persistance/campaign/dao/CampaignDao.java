@@ -29,4 +29,7 @@ public class CampaignDao extends BasicDAO<Campaign, ObjectId> {
         return DbsManager.getDatastore().find(Campaign.class).asList();
     }
 
+	public List<Campaign> getByUserId(ObjectId userId) {
+		return DbsManager.getDatastore().find(Campaign.class).field("userId").equal(userId).asList();
+	}
 }

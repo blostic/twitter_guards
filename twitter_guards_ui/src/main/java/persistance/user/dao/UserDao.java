@@ -30,7 +30,11 @@ public class UserDao extends BasicDAO<User, ObjectId> {
     }
 
 	public boolean checkIfEmailInDbs(String email){
-		return DbsManager.getDatastore().find(User.class).criteria("email").equal(email).getQuery().get() != null;
+		return DbsManager.getDatastore().find(User.class).field("email").equal(email).get() != null;
+	}
+	
+	public User getByEmail(String email){
+		return DbsManager.getDatastore().find(User.class).field("email").equal(email).get();
 	}
 	
 }

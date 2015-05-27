@@ -23,6 +23,8 @@ public class Campaign {
 	private Date startDate;
 	private Date endDate;
 	
+	private ObjectId userId;
+	
 	private List<String> keywords;
 	private Polygon polygon;
 	private Map<Long, Tweet> timeToTweetMap = new HashMap<Long, Tweet>();
@@ -98,6 +100,14 @@ public class Campaign {
 				+ description + ", startDate=" + startDate + ", endDate="
 				+ endDate + ", keywords=" + keywords + ", polygon=" + polygon
 				+ ", timeToTweetMap=" + timeToTweetMap + "]";
+	}
+
+	public ObjectId getUserId() {
+		return userId;
+	}
+
+	public void setUserId(ObjectId userId) {
+		this.userId = userId;
 	}
 
 }

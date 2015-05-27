@@ -1,13 +1,9 @@
 package ui.user;
 
-import java.io.UnsupportedEncodingException;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-
 import persistance.user.dao.UserDao;
 import persistance.user.entity.User;
+import ui.TwitterGuardUI;
+import ui.login.UserUtils;
 import ui.utils.CustomePasswordField;
 import ui.utils.CustomeTextField;
 import ui.views.TwitterGuardsView;
@@ -15,6 +11,8 @@ import ui.views.TwitterGuardsView;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.Notification;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 public class UserManagementView extends TwitterGuardsView{
@@ -28,17 +26,20 @@ public class UserManagementView extends TwitterGuardsView{
 	private Button saveButton;
 	
 	public UserManagementView() {
-		
+		User user = ((TwitterGuardUI)UI.getCurrent()).getCurrentUser();
 		VerticalLayout contentWrapper = new VerticalLayout();
 		
 		nameTextField = new CustomeTextField("Name", "Type your name...");
 		nameTextField.getTextField().setId("user-name-text-field");
+		nameTextField.setValue(user.getName());
 		
 		surnameTextField = new CustomeTextField("Surname", "Type your surname...");		
 		surnameTextField.getTextField().setId("user-surname-text-field");
+		surnameTextField.setValue(user.getSurname());
 		
 		emailTextField = new CustomeTextField("Email", "Type your email...");
 		emailTextField.getTextField().setId("user-email-text-field");
+		emailTextField.setValue(user.getEmail());
 		
 		password = new CustomePasswordField("Password", "Type your password...");
 		password.getTextField().setId("user-password-text-field");
@@ -59,15 +60,22 @@ public class UserManagementView extends TwitterGuardsView{
 			if (password.getValue() != null 
 					&& password.getValue().equals(retypePassword.getValue())
 					&& ! UserDao.get().checkIfEmailInDbs(emailTextField.getValue())) {
-				User user = new User();
 				user.setName(nameTextField.getValue());
 				user.setSurname(surnameTextField.getValue());
 				user.setEmail(emailTextField.getValue());
-				String salt = getRandomSalt();
-				user.setPasswordHash(getPasswordHash(password.getValue(), salt));
+				String salt = UserUtils.getRandomSalt();
+				user.setPasswordHash(UserUtils.getPasswordHash(password.getValue(), salt));
 				user.setSalt(salt);
 				UserDao.get().save(user);
+				Notification.show("Data changed", Notification.TYPE_HUMANIZED_MESSAGE);
+			} else if (password.getValue() == null || password.getValue() == "") {
+				user.setName(nameTextField.getValue());
+				user.setSurname(surnameTextField.getValue());
+				user.setEmail(emailTextField.getValue());
+				UserDao.get().save(user);
+				Notification.show("Data changed", Notification.TYPE_HUMANIZED_MESSAGE);
 			}
+		
 		});
 		
 		contentWrapper.setDefaultComponentAlignment(Alignment.MIDDLE_RIGHT);
@@ -84,21 +92,6 @@ public class UserManagementView extends TwitterGuardsView{
 		contentWrapper.setSpacing(true);
 		setSpacing(true);
 		setSizeFull();
-	}
-	
-	private String getPasswordHash(String value, String salt) {
-		try {
-			MessageDigest digest = MessageDigest.getInstance("SHA-256");
-			byte[] hash = digest.digest((value + salt).getBytes("UTF-8"));
-			return hash.toString();
-		} catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		return "";
-	}
-
-	private String getRandomSalt() {
-		return new BigInteger(130, new SecureRandom()).toString(32);
 	}
 
 	private void alignToRight(VerticalLayout wrapper, Component... components) {

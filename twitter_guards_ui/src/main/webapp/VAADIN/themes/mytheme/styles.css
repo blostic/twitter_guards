@@ -130,5 +130,14 @@
 	font-weight: normal;
 	fill: #197DE1;
 	text-align: center;
-	
 }
+
+.login-form-window .v-slot-custome-text-field {
+	float: center;
+}
+
+.login-form-window .v-label {
+	text-align: center;
+}
+
+	

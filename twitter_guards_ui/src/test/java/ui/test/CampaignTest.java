@@ -17,12 +17,16 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import persistance.DbsManager;
 import persistance.campaign.dao.CampaignDao;
 import persistance.campaign.entity.Campaign;
+import persistance.user.dao.UserDao;
+import persistance.user.entity.User;
+import ui.login.UserUtils;
 
 public class CampaignTest extends TestCase {
 
 	private WebDriver driver;
 	private StringBuffer verificationErrors = new StringBuffer();
 	private Properties properties;
+	private User user;
 
 	@Before
 	public void setUp() throws Exception {
@@ -35,7 +39,19 @@ public class CampaignTest extends TestCase {
 				properties.getProperty("chrome_installation_path"));
 
 		driver = new ChromeDriver();
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(300, TimeUnit.SECONDS);
+		
+		user = UserDao.get().getByEmail("mail@test.com");
+		if (user == null) {
+			user = new User();
+			user.setName("name");
+			user.setSurname("surname");
+			user.setEmail("mail@test.com");
+			String salt = UserUtils.getRandomSalt();
+			user.setPasswordHash(UserUtils.getPasswordHash("password", salt));
+			user.setSalt(salt);
+			UserDao.get().save(user);
+		}
 	}
 
 	private WebElement retryUntilAttached(String id) {
@@ -52,10 +68,17 @@ public class CampaignTest extends TestCase {
 
 		driver.get(properties.getProperty("twitter_view_address"));
 		driver.manage().window().maximize();		
+
+		WebElement element = retryUntilAttached("login-window-login");
+		element.sendKeys(user.getName());
 		
-		Thread.sleep(1000);
-		retryUntilAttached("twitter-timeline-icon").click();
-		WebElement element = retryUntilAttached("new-campaign-component");
+		element = retryUntilAttached("login-window-password");
+		element.sendKeys("password");
+		
+		element = retryUntilAttached("login-window-login-button");
+		element.click();
+
+		element = retryUntilAttached("new-campaign-component");
 		assertNotNull(element);
 		element.click();
 

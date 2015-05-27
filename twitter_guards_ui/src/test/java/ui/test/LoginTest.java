@@ -16,12 +16,14 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import persistance.DbsManager;
 import persistance.user.dao.UserDao;
 import persistance.user.entity.User;
+import ui.login.UserUtils;
 
-public class UserCreationTest extends TestCase {
+public class LoginTest extends TestCase {
 
 	private WebDriver driver;
 	private StringBuffer verificationErrors = new StringBuffer();
 	private Properties properties;
+	private User user;
 
 	@Before
 	public void setUp() throws Exception {
@@ -35,9 +37,17 @@ public class UserCreationTest extends TestCase {
 
 		driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(300, TimeUnit.SECONDS);
-		User user = UserDao.get().getByEmail("poldek.banan@gmail.com");
-		if (user != null) {
-			UserDao.get().delete(user);
+		
+		user = UserDao.get().getByEmail("mail@test.com");
+		if (user == null) {
+			user = new User();
+			user.setName("name");
+			user.setSurname("surname");
+			user.setEmail("mail@test.com");
+			String salt = UserUtils.getRandomSalt();
+			user.setPasswordHash(UserUtils.getPasswordHash("password", salt));
+			user.setSalt(salt);
+			UserDao.get().save(user);
 		}
 	}
 
@@ -56,33 +66,16 @@ public class UserCreationTest extends TestCase {
 		driver.get(properties.getProperty("twitter_view_address"));
 		driver.manage().window().maximize();		
 
-		retryUntilAttached("user-register-button").click();
-
-		WebElement element = null;
-
-		element = retryUntilAttached("user-name-text-field");
-		assertNotNull(element);
-		element.sendKeys("Poldek");
-
-		element = retryUntilAttached("user-surname-text-field");
-		assertNotNull(element);
-		element.sendKeys("Banan");
-
-		element = retryUntilAttached("user-email-text-field");
-		element.sendKeys("poldek.banan@gmail.com");
+		WebElement element = retryUntilAttached("login-window-login");
+		element.sendKeys(user.getName());
 		
-		element = retryUntilAttached("user-password-text-field");
-		element.sendKeys("ala123");
+		element = retryUntilAttached("login-window-password");
+		element.sendKeys("password");
 		
-		element = retryUntilAttached("user-retyped-text-field");
-		element.sendKeys("ala123");
-		
-		retryUntilAttached("user-save-button").click();
+		element = retryUntilAttached("login-window-login-button");
+		element.click();
 
-		Thread.sleep(500);
-		User user = UserDao.get().getByEmail("poldek.banan@gmail.com");
-		assertNotNull("new user created", user);
-		
+		assertNotNull(retryUntilAttached("twitter_guards_main_view"));
 	}
 
 	@After
