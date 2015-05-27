@@ -7,6 +7,7 @@ import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.sentiment.SentimentCoreAnnotations.SentimentAnnotatedTree;
 import edu.stanford.nlp.trees.Tree;
 import edu.stanford.nlp.util.CoreMap;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import twitter4j.Status;
 
@@ -46,7 +47,7 @@ public class Ranker implements IRanker, InitializingBean {
      * @return sentimental Integer value, being: 0 - super negative, 1 - negative, 2 - neutral, 3 - positive, 4 - super positive
      */
     public int rank(String text) {
-        if("".equals(text) || null == text ){
+        if(StringUtils.isEmpty(text)){
             throw new IllegalArgumentException("Text cannot be empty or null.");
         }
         int mainSentiment = 0;
