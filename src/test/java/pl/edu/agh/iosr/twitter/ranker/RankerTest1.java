@@ -35,8 +35,6 @@ public class RankerTest1 {
 
     @Test
     public void test() {
-        ranker = new Ranker();
-        ranker.init();
 
         int negativeRank = ranker.rank(negativeText);
         assertTrue(negativeRank == 1);
