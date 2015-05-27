@@ -93,14 +93,25 @@ public class HistoryChart extends VerticalLayout {
 
 	public void drawChart(List<String> keywords){
 		TweetDao dao = TweetDao.get();
+		
+		ListSeries superPositiveData = new ListSeries("Super Positive");
+		superPositiveData.setData(dateList.stream().map(date -> dao.getTweets(campaign.getTitle(), keywords, date, Emotion.SUPER_POSITIVE).size()).collect(Collectors.toList()));
+		
 		ListSeries positiveData = new ListSeries("Positive");
 		positiveData.setData(dateList.stream().map(date -> dao.getTweets(campaign.getTitle(), keywords, date, Emotion.POSITIVE).size()).collect(Collectors.toList()));
+		
 		ListSeries neutralData = new ListSeries("Neutral");
 		neutralData.setData(dateList.stream().map(date -> dao.getTweets(campaign.getTitle(), keywords, date, Emotion.NEUTRAL).size()).collect(Collectors.toList()));
+		
 		ListSeries negativeData = new ListSeries("Negative");
 		negativeData.setData(dateList.stream().map(date -> dao.getTweets(campaign.getTitle(), keywords, date, Emotion.NEGATIVE).size()).collect(Collectors.toList()));
 //	        conf.addSeries(new ListSeries("Super Positive", 502, 235, 309, 247, 402, 1634, 5268));
-		conf.setSeries(positiveData, neutralData, positiveData);
+		
+		ListSeries superNegativeData = new ListSeries("Super Negative");
+		superNegativeData.setData(dateList.stream().map(date -> dao.getTweets(campaign.getTitle(), keywords, date, Emotion.SUPER_NEGATIVE).size()).collect(Collectors.toList()));
+		
+		
+		conf.setSeries(superPositiveData, positiveData, neutralData, negativeData, superNegativeData);
 //	        conf.addSeries(new ListSeries("Super negative", 21, 23, 22, 63, 33, 43, 76));
 
 		chart.drawChart(conf);

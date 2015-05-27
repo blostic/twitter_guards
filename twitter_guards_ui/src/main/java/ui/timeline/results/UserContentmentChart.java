@@ -64,6 +64,7 @@ public class UserContentmentChart extends VerticalLayout {
 
         TweetDao dao = TweetDao.get();
 
+        series.add(new DataSeriesItem("Super Positive", dao.getTweets(campaign.getTitle(), keywords, Emotion.SUPER_POSITIVE).size()));
         DataSeriesItem distinct = new DataSeriesItem("Positive", dao.getTweets(campaign.getTitle(), keywords, Emotion.POSITIVE).size());
         distinct.setSliced(true);
         distinct.setSelected(true);
@@ -72,6 +73,7 @@ public class UserContentmentChart extends VerticalLayout {
 
         series.add(new DataSeriesItem("Neutral", dao.getTweets(campaign.getTitle(), keywords, Emotion.NEUTRAL).size()));
         series.add(new DataSeriesItem("Negative", dao.getTweets(campaign.getTitle(), keywords, Emotion.NEGATIVE).size()));
+        series.add(new DataSeriesItem("Super Negative", dao.getTweets(campaign.getTitle(), keywords, Emotion.SUPER_NEGATIVE).size()));
         series.add(new DataSeriesItem("Unrecognized", dao.getTweets(campaign.getTitle(), keywords, Emotion.UNRECOGNIZED).size()));
 
         chart.drawChart(conf);
