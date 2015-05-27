@@ -19,6 +19,7 @@ public class StepsManager extends HorizontalLayout {
 		getNextButton().addStyleName("no-default-style");
 		getNextButton().addStyleName("good-looking-button");
 		getNextButton().addStyleName("editor-next-button");
+		nextButton.setId("campaign-next-button");
 		
 		getPreviousButton().addStyleName("no-default-style");
 		getPreviousButton().addStyleName("good-looking-button");
@@ -27,6 +28,8 @@ public class StepsManager extends HorizontalLayout {
 		getFinishButton().addStyleName("no-default-style");
 		getFinishButton().addStyleName("good-looking-button");
 		getFinishButton().addStyleName("editor-finish-button");
+		finishButton.setId("campaign-finish-button");
+		
 	}
 
 	public void showStartArrangement() {

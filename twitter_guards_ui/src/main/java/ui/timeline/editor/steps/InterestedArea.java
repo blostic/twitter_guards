@@ -25,7 +25,7 @@ public class InterestedArea extends EditorStep {
 		GoogleMap map = new GoogleMap("");
 		map.setWidth("800px");
 		map.setHeight("500px");
-		
+		map.setId("google-map");
 		coordinates = new ArrayList<LatLon>();
 		
 		map.addMapClickListener(new MapClickListener() {
@@ -55,9 +55,11 @@ public class InterestedArea extends EditorStep {
 			LatLon point = coordinates.get(i);
 			points[i] = GeoJson.point(point.getLat(), point.getLon());
 		}
-		points[points.length -1 ] = points[0];
-		Polygon polygon = GeoJson.polygon(points);
-		campaign.setPolygon(polygon);
+		if (points.length > 1 ) {
+			points[points.length -1 ] = points[0];
+			Polygon polygon = GeoJson.polygon(points);
+			campaign.setPolygon(polygon);			
+		}
 	}
 	
 }

@@ -36,7 +36,7 @@ public class TimelineNote extends HorizontalLayout {
 		content.addComponent(addNewProgram);
 		content.setComponentAlignment(addNewProgram, Alignment.MIDDLE_CENTER);
 		content.setSizeFull();
-		
+		content.setId("new-campaign-component");
 		content.addLayoutClickListener(new LayoutClickListener() {
 			
 			private static final long serialVersionUID = 1L;

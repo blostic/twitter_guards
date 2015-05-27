@@ -23,6 +23,8 @@ public class TwitterGuardUI extends UI {
 		
 		setContent(contentWrapper);
 		setSizeFull();
+		
+		setId("twitter_guards_main_view");
 	}
 
 	public ContentWrapper getContentWrapper() {
