@@ -21,9 +21,11 @@ public enum Emotion {
 
     public static Emotion getValue(int rank){
         switch (rank) {
+            case 0: return SUPER_NEGATIVE;
             case 1: return NEGATIVE;
             case 2: return NEUTRAL;
             case 3: return POSITIVE;
+            case 4: return SUPER_POSITIVE;
             default: return UNRECOGNIZED;
         }
     }
