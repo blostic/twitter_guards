@@ -25,8 +25,9 @@ public class KeywordsSpecification extends EditorStep {
 	public KeywordsSpecification() {
 		HorizontalLayout wrapper = new HorizontalLayout();
 		keywordSearch = new CustomeTextField("New keyword to search:", "What keyword you are looking for?");
+		keywordSearch.getTextField().setId("keyword-specification-text-field");
 		addButton = new Button("Add");
-		
+		addButton.setId("add-keyword-to-list-button");
 		addButton.addClickListener(new ClickListener() {
 			
 			private static final long serialVersionUID = 1L;

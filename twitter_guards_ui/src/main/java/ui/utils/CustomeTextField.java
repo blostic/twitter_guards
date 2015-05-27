@@ -49,4 +49,9 @@ public class CustomeTextField extends HorizontalLayout {
 	public String getValue(){
 		return textField.getValue();
 	}
+	
+	public void setValue(String value){
+		textField.setValue(value);
+	}
+	
 }

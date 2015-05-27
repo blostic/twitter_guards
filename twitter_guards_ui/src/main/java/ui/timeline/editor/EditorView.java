@@ -98,6 +98,7 @@ public class EditorView extends VerticalLayout {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				steps.get(currentIndex).updateCampaign(campaign);
+				campaign.setUserId(((TwitterGuardUI)UI.getCurrent()).getCurrentUser().getId());
 				CampaignDao.get().save(campaign);
 				((TwitterGuardUI)UI.getCurrent()).getContentWrapper().setContent(new TimelineComponent());
 	        	try {

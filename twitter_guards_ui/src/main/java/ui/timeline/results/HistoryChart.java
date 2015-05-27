@@ -33,6 +33,9 @@ public class HistoryChart extends VerticalLayout {
 	private static final long serialVersionUID = 1L;
 
 	private Campaign campaign;
+	private Chart chart;
+	private Configuration conf;
+	private List<Date> dateList;
 
 	public HistoryChart(Campaign campaign) {
 		this.campaign = campaign;
@@ -45,9 +48,9 @@ public class HistoryChart extends VerticalLayout {
 	}
 	
 	protected Component getChart() {
-		  Chart chart = new Chart(ChartType.AREA);
+		  chart = new Chart(ChartType.AREA);
 
-	        Configuration conf = chart.getConfiguration();
+	        conf = chart.getConfiguration();
 
 	        conf.setTitle(new Title("Observed sentences occurrence in Tweets by context"));
 
@@ -57,11 +60,11 @@ public class HistoryChart extends VerticalLayout {
 			int daysNumber = Days.daysBetween(new DateTime(campaign.getStartDate()), new DateTime(new Date())).getDays();
 
 			ArrayList<String> list = new ArrayList<String>();
-			List<Date> dateList = new ArrayList<>();
+			dateList = new ArrayList<>();
 	        for (int i = daysNumber; i >= 0; i--) {
 	        	Calendar c = Calendar.getInstance();
 	        	c.setTime(new Date());
-	        	c.add(Calendar.DATE, - i);
+	        	c.add(Calendar.DATE, -i);
 				dateList.add(c.getTime());
 	        	list.add(getDateInCorrectFormat(c.getTime()));
 			}
@@ -83,23 +86,34 @@ public class HistoryChart extends VerticalLayout {
 	        plotOptions.setMarker(marker);
 	        conf.setPlotOptions(plotOptions);
 
-			TweetDao dao = TweetDao.get();
-			ListSeries positiveData = new ListSeries("Positive");
-			positiveData.setData(dateList.stream().map(date -> dao.getTweets(campaign.getTitle(), campaign.getKeywords(), date, Emotion.POSITIVE).size()).collect(Collectors.toList()));
-			ListSeries neutralData = new ListSeries("Neutral");
-			neutralData.setData(dateList.stream().map(date -> dao.getTweets(campaign.getTitle(), campaign.getKeywords(), date, Emotion.NEUTRAL).size()).collect(Collectors.toList()));
-			ListSeries negativeData = new ListSeries("Negative");
-			negativeData.setData(dateList.stream().map(date -> dao.getTweets(campaign.getTitle(), campaign.getKeywords(), date, Emotion.NEGATIVE).size()).collect(Collectors.toList()));
-
-		System.out.println(negativeData.getData());
-//	        conf.addSeries(new ListSeries("Super Positive", 502, 235, 309, 247, 402, 1634, 5268));
-	        conf.addSeries(positiveData);
-	        conf.addSeries(neutralData);
-			conf.addSeries(negativeData);
-//	        conf.addSeries(new ListSeries("Super negative", 21, 23, 22, 63, 33, 43, 76));
-
-	        chart.drawChart(conf);
+			drawChart(campaign.getKeywords());
 
 	        return chart;
     }
+
+	public void drawChart(List<String> keywords){
+		TweetDao dao = TweetDao.get();
+		
+		ListSeries superPositiveData = new ListSeries("Super Positive");
+		superPositiveData.setData(dateList.stream().map(date -> dao.getTweets(campaign.getTitle(), keywords, date, Emotion.SUPER_POSITIVE).size()).collect(Collectors.toList()));
+		
+		ListSeries positiveData = new ListSeries("Positive");
+		positiveData.setData(dateList.stream().map(date -> dao.getTweets(campaign.getTitle(), keywords, date, Emotion.POSITIVE).size()).collect(Collectors.toList()));
+		
+		ListSeries neutralData = new ListSeries("Neutral");
+		neutralData.setData(dateList.stream().map(date -> dao.getTweets(campaign.getTitle(), keywords, date, Emotion.NEUTRAL).size()).collect(Collectors.toList()));
+		
+		ListSeries negativeData = new ListSeries("Negative");
+		negativeData.setData(dateList.stream().map(date -> dao.getTweets(campaign.getTitle(), keywords, date, Emotion.NEGATIVE).size()).collect(Collectors.toList()));
+//	        conf.addSeries(new ListSeries("Super Positive", 502, 235, 309, 247, 402, 1634, 5268));
+		
+		ListSeries superNegativeData = new ListSeries("Super Negative");
+		superNegativeData.setData(dateList.stream().map(date -> dao.getTweets(campaign.getTitle(), keywords, date, Emotion.SUPER_NEGATIVE).size()).collect(Collectors.toList()));
+		
+		
+		conf.setSeries(superPositiveData, positiveData, neutralData, negativeData, superNegativeData);
+//	        conf.addSeries(new ListSeries("Super negative", 21, 23, 22, 63, 33, 43, 76));
+
+		chart.drawChart(conf);
+	}
 }

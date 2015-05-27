@@ -21,6 +21,7 @@ public class CustomeDataSelector extends HorizontalLayout {
 		customizeTextField();
 		Label descripitonLabel = new Label(descripiton);
 		dateField.setData(initialDate);
+		dateField.setValue(initialDate);
 		
 		addComponents(descripitonLabel, getDateField());
 		

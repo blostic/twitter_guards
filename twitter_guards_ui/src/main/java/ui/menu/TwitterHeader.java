@@ -63,6 +63,7 @@ public class TwitterHeader extends HorizontalLayout {
 	
 	private void addUserIcon() {
 		VerticalLayout icon = getIconVerticalLayout("user-icon");
+		icon.setId("user-management-icon");
 		icon.addLayoutClickListener(new LayoutClickListener() {
 			
 			private static final long serialVersionUID = 1L;
@@ -91,6 +92,7 @@ public class TwitterHeader extends HorizontalLayout {
 
 	private void addTimelineIcon() {
 		VerticalLayout icon = getIconVerticalLayout("timeline-icon");
+		icon.setId("twitter-timeline-icon");
 		icon.addLayoutClickListener(new LayoutClickListener() {
 			
 			private static final long serialVersionUID = 1L;

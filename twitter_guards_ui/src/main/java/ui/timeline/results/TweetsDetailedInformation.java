@@ -7,13 +7,13 @@ import java.util.Map.Entry;
 import persistance.campaign.entity.Campaign;
 import persistance.tweets.dao.TweetDao;
 import persistance.tweets.entity.Emotion;
+import persistance.tweets.entity.Tweet;
 
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.VerticalLayout;
-import persistance.tweets.entity.Tweet;
 
 public class TweetsDetailedInformation extends VerticalLayout {
 

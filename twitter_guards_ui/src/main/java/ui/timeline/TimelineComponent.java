@@ -1,17 +1,14 @@
 package ui.timeline;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.client.ClientProtocolException;
-
 import persistance.campaign.dao.CampaignDao;
 import persistance.campaign.entity.Campaign;
+import ui.TwitterGuardUI;
 
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
-
-import communicator.TwitterGuardsApiWrapper;
 
 public class TimelineComponent extends VerticalLayout {
 
@@ -22,7 +19,7 @@ public class TimelineComponent extends VerticalLayout {
         setId("cd-timeline");
         setStyleName("cd-container");
         notes.add(new TimelineNote());
-        List<Campaign> campaigns = CampaignDao.get().getAll();
+        List<Campaign> campaigns = CampaignDao.get().getByUserId(((TwitterGuardUI)UI.getCurrent()).getCurrentUser().getId());
         for (Campaign campaign : campaigns) {
         	notes.add(new TimelineNote(campaign));
         }

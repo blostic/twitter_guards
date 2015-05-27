@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import persistance.campaign.entity.Campaign;
+import persistance.tweets.dao.TweetDao;
 import ui.TwitterGuardUI;
 import ui.timeline.editor.EditorView;
 import ui.timeline.results.ResultsTabSheet;
@@ -36,7 +37,7 @@ public class TimelineNote extends HorizontalLayout {
 		content.addComponent(addNewProgram);
 		content.setComponentAlignment(addNewProgram, Alignment.MIDDLE_CENTER);
 		content.setSizeFull();
-		
+		content.setId("new-campaign-component");
 		content.addLayoutClickListener(new LayoutClickListener() {
 			
 			private static final long serialVersionUID = 1L;
@@ -67,7 +68,7 @@ public class TimelineNote extends HorizontalLayout {
 		Label fromLabel = new Label("<div class='date-label'>From </div>", ContentMode.HTML);
 		Label toLabel = new Label("<div class='date-label'>to </div>", ContentMode.HTML);
 		Label dateStartLabel = new Label("<div class='date-value'>" + formatter.format(startDate) + "</div>", ContentMode.HTML);
-		Label dateEndLabel = new Label("<div class='date-value'>" + formatter.format(startDate) + "</div>", ContentMode.HTML);
+		Label dateEndLabel = new Label("<div class='date-value'>" + formatter.format(endDate) + "</div>", ContentMode.HTML);
 		Label fakeLabel = new Label();
 		HorizontalLayout wrapper = new HorizontalLayout(fakeLabel, fromLabel, dateStartLabel, toLabel, dateEndLabel);
 		wrapper.setExpandRatio(fakeLabel, 1.0f);
@@ -79,7 +80,8 @@ public class TimelineNote extends HorizontalLayout {
 	
     public TimelineNote(Campaign campaign){
     	VerticalLayout content = styleNote();
-        Label processedTweetsLabel = new Label("Processed tweets: " + campaign.getTimeToTweetMap().size());
+		int tweetsCount = TweetDao.get().getTweets(campaign.getTitle(), campaign.getKeywords()).size();
+        Label processedTweetsLabel = new Label("Processed tweets: " + tweetsCount);
         content.addComponent(new Label("<font size=5> title: "+ campaign.getTitle() +"</font>", ContentMode.HTML));
         content.addComponent(new Label("<font size=3> description: "+ campaign.getDescription() +"</font>", ContentMode.HTML));
         content.addComponents(processedTweetsLabel);

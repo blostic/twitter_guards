@@ -15,10 +15,14 @@ import com.vaadin.ui.VerticalLayout;
 import persistance.tweets.dao.TweetDao;
 import persistance.tweets.entity.Emotion;
 
+import java.util.List;
+
 public class UserContentmentChart extends VerticalLayout {
 
 	private static final long serialVersionUID = 1L;
 	private Campaign campaign;
+    private Configuration conf;
+    private Chart chart;
 
 	public UserContentmentChart(Campaign campaign) {
 		this.campaign = campaign;
@@ -34,9 +38,9 @@ public class UserContentmentChart extends VerticalLayout {
     }
 
     public Chart createChart() {
-        Chart chart = new Chart(ChartType.PIE);
+        chart = new Chart(ChartType.PIE);
 
-        Configuration conf = chart.getConfiguration();
+        conf = chart.getConfiguration();
 
         conf.setTitle("Context of collected tweets");
 
@@ -49,23 +53,30 @@ public class UserContentmentChart extends VerticalLayout {
         plotOptions.setDataLabels(dataLabels);
         conf.setPlotOptions(plotOptions);
 
+        drawChart(campaign.getKeywords());
+
+        return chart;
+
+    }
+
+    public void drawChart(List<String> keywords){
         DataSeries series = new DataSeries();
 
         TweetDao dao = TweetDao.get();
 
-        DataSeriesItem distinct = new DataSeriesItem("Positive", dao.getTweets(campaign.getTitle(), campaign.getKeywords(), Emotion.POSITIVE).size());
+        series.add(new DataSeriesItem("Super Positive", dao.getTweets(campaign.getTitle(), keywords, Emotion.SUPER_POSITIVE).size()));
+        DataSeriesItem distinct = new DataSeriesItem("Positive", dao.getTweets(campaign.getTitle(), keywords, Emotion.POSITIVE).size());
         distinct.setSliced(true);
         distinct.setSelected(true);
         series.add(distinct);
         conf.setSeries(series);
 
-        series.add(new DataSeriesItem("Neutral", dao.getTweets(campaign.getTitle(), campaign.getKeywords(), Emotion.NEUTRAL).size()));
-        series.add(new DataSeriesItem("Negative", dao.getTweets(campaign.getTitle(), campaign.getKeywords(), Emotion.NEGATIVE).size()));
-        series.add(new DataSeriesItem("Unrecognized", dao.getTweets(campaign.getTitle(), campaign.getKeywords(), Emotion.UNRECOGNIZED).size()));
+        series.add(new DataSeriesItem("Neutral", dao.getTweets(campaign.getTitle(), keywords, Emotion.NEUTRAL).size()));
+        series.add(new DataSeriesItem("Negative", dao.getTweets(campaign.getTitle(), keywords, Emotion.NEGATIVE).size()));
+        series.add(new DataSeriesItem("Super Negative", dao.getTweets(campaign.getTitle(), keywords, Emotion.SUPER_NEGATIVE).size()));
+        series.add(new DataSeriesItem("Unrecognized", dao.getTweets(campaign.getTitle(), keywords, Emotion.UNRECOGNIZED).size()));
 
         chart.drawChart(conf);
-
-        return chart;
     }
 
 }
