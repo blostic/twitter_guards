@@ -7,6 +7,7 @@ import persistance.campaign.entity.Campaign;
 import persistance.tweets.dao.TweetDao;
 import ui.TwitterGuardUI;
 import ui.timeline.editor.EditorView;
+import ui.timeline.editor.steps.CampaignType;
 import ui.timeline.results.ResultsTabSheet;
 
 import com.vaadin.event.LayoutEvents.LayoutClickEvent;
@@ -44,7 +45,7 @@ public class TimelineNote extends HorizontalLayout {
 
 			@Override
 			public void layoutClick(LayoutClickEvent event) {
-				((TwitterGuardUI)UI.getCurrent()).getContentWrapper().setContent(new EditorView());
+				((TwitterGuardUI)UI.getCurrent()).getContentWrapper().setContent(new CampaignType());
 			}
 		});
 		setWidth("45%");

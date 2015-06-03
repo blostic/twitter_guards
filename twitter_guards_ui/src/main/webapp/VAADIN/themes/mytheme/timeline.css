@@ -579,3 +579,26 @@
 	font-weight: bold;
 	color: darkgrey;
 }
+
+
+
+.twitter-selection-button {
+	background-image: url("graphics/twitter.png") !important;
+	background-position: center !important;
+	background-size: 100% auto !important;
+	background-repeat: no-repeat !important;
+	cursor: pointer;
+}
+
+.facebook-selection-button {
+	background-image: url("graphics/facebook.png") !important;
+	background-position: center !important;
+	background-size: 100% auto !important;
+	background-repeat: no-repeat !important;
+	cursor: pointer;
+}
+
+.facebook-selection-button:active, .twitter-selection-button:active {
+	position: relative !important;
+	top: 5px !important;
+}

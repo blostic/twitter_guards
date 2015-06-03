@@ -8,7 +8,6 @@ import persistance.campaign.entity.Campaign;
 import ui.utils.CustomeDataSelector;
 import ui.utils.CustomeTextField;
 
-import com.vaadin.client.ui.calendar.schedule.DateUtil;
 import com.vaadin.ui.Alignment;
 
 public class BasicConfig extends EditorStep {

@@ -28,7 +28,9 @@ public class Campaign {
 	private List<String> keywords;
 	private Polygon polygon;
 	private Map<Long, Tweet> timeToTweetMap = new HashMap<Long, Tweet>();
-
+	
+	private List<String> facebookProfiles;
+	
 	public ObjectId getId() {
 		return id;
 	}
@@ -108,6 +110,14 @@ public class Campaign {
 
 	public void setUserId(ObjectId userId) {
 		this.userId = userId;
+	}
+
+	public List<String> getFacebookProfiles() {
+		return facebookProfiles;
+	}
+
+	public void setFacebookProfiles(List<String> facebookProfiles) {
+		this.facebookProfiles = facebookProfiles;
 	}
 
 }
