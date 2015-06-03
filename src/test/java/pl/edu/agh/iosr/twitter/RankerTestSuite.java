@@ -2,8 +2,8 @@ package pl.edu.agh.iosr.twitter;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import pl.edu.agh.iosr.twitter.ranker.RankerTest1;
-import pl.edu.agh.iosr.twitter.ranker.RankerTest2;
+import pl.edu.agh.iosr.twitter.ranker.Ranker1Test;
+import pl.edu.agh.iosr.twitter.ranker.Ranker2Test;
 
 /**
  * Created on 2 Apr, 2015 by Jakub Sloniec.
@@ -11,8 +11,8 @@ import pl.edu.agh.iosr.twitter.ranker.RankerTest2;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        RankerTest1.class,
-        RankerTest2.class
+        Ranker1Test.class,
+        Ranker2Test.class
 })
 public class RankerTestSuite {
 }

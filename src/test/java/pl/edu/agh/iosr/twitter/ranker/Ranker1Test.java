@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created on 2 Apr, 2015 by Jakub Sloniec.
@@ -15,35 +15,44 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"/spring-test-config.xml"})
-public class RankerTest1 {
+public class Ranker1Test {
 
     @Autowired
-    Ranker ranker;
+    IRanker ranker;
 
+    String superNegativeText;
     String negativeText;
     String neutralText;
     String positiveText;
+    String superPositiveText;
 
 
     @Before
     public void prepare() {
+        superNegativeText = "I feel very terrible and depressed";
         negativeText = "I feel bad";
         neutralText = "I feel normal";
         positiveText = "I feel great";
+        superPositiveText = "I fill like it's the most wonderful day of my life and I'm very happy.";
     }
-
 
     @Test
     public void test() {
 
-        int negativeRank = ranker.rank(negativeText);
-        assertTrue(negativeRank == 1);
+        //test super negative sentence
+        assertEquals(0, ranker.rank(superNegativeText));
 
-        int neutralRank = ranker.rank(neutralText);
-        assertTrue(neutralRank == 2);
+        //test negative sentence
+        assertEquals(1, ranker.rank(negativeText));
 
-        int positiveRank = ranker.rank(positiveText);
-        assertTrue(positiveRank == 3);
+        //test neutral sentence
+        assertEquals(2, ranker.rank(neutralText));
+
+        //test positive sentence
+        assertEquals(3, ranker.rank(positiveText));
+
+        //test super positive sentence
+        assertEquals(4, ranker.rank(superPositiveText));
 
     }
 }

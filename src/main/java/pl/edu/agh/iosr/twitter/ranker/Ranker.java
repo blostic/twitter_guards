@@ -7,10 +7,8 @@ import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.sentiment.SentimentCoreAnnotations.SentimentAnnotatedTree;
 import edu.stanford.nlp.trees.Tree;
 import edu.stanford.nlp.util.CoreMap;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
-import pl.edu.agh.iosr.twitter.ranker.IRanker;
-import pl.edu.agh.iosr.twitter.ranker.RankerCore;
-import pl.edu.agh.iosr.twitter.ranker.RankerUtils;
 import twitter4j.Status;
 
 /**
@@ -44,10 +42,14 @@ public class Ranker implements IRanker, InitializingBean {
 
     /**
      * Takes twitter status object as argument and returns a sentiment value for its content text.
+     *
      * @param text String to be emotionaly evaluated
-     * @return sentimental Integer value, being: 1 - negative, 2 - neutral, 3 - positive
+     * @return sentimental Integer value, being: 0 - super negative, 1 - negative, 2 - neutral, 3 - positive, 4 - super positive
      */
     public int rank(String text) {
+        if(StringUtils.isEmpty(text)){
+            throw new IllegalArgumentException("Text cannot be empty or null.");
+        }
         int mainSentiment = 0;
         if (text != null && text.length() > 0) {
             int longest = 0;

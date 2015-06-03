@@ -14,15 +14,17 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"/spring-test-config.xml"})
-public class RankerTest2 {
+public class Ranker3Test {
 
     @Autowired
     IRanker ranker;
 
-    @Test
-    public void testSalutationMessage() {
-        System.out.println("RankerTest2");
-        String nullString = null;
-        assertTrue(ranker.rank(nullString) == 0);
+    String emptyText;
+
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test() {
+        emptyText = "";
+        ranker.rank(emptyText);
     }
 }
