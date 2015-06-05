@@ -23,6 +23,9 @@ public class FacebookRoutesManager extends CamelRoutesManager implements Initial
 //    @Value("${facebook.oAuthAccessToken}")
 //    private String oAuthAccessToken;
 
+    @Value("${mongodb.dbname}")
+    private String dbName;
+
     @Override
     public void afterPropertiesSet() throws Exception {
         FacebookComponent fb = camelContext.getComponent("facebook", FacebookComponent.class);
@@ -54,7 +57,7 @@ public class FacebookRoutesManager extends CamelRoutesManager implements Initial
 
     public String addFbPostsRouteWithRank(FacebookRouteConfiguration configuration){
         String ranker = "bean:" + configuration.getRankerBean();
-        String dbEndpoint = "mongodb:mongoBean?database=twitter-guard&collection=" + configuration.getDbCollection() + "&operation=insert";
+        String dbEndpoint = "mongodb:mongoBean?database=" + dbName + "&collection=" + configuration.getDbCollection() + "&operation=insert";
 
         return addFbPostsRoute(configuration.getPageId(), Arrays.asList(ranker, dbEndpoint), configuration.getRouteName(), null);
     }
