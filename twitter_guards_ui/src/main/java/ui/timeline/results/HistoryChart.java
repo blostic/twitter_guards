@@ -51,8 +51,11 @@ public class HistoryChart extends VerticalLayout {
 		  chart = new Chart(ChartType.AREA);
 
 	        conf = chart.getConfiguration();
-
-	        conf.setTitle(new Title("Observed sentences occurrence in Tweets by context"));
+	        if (campaign.isTwitterCampaign()) {
+	        	conf.setTitle(new Title("Observed sentences occurrence in Tweets by context"));				
+			} else {
+				conf.setTitle(new Title("Observed sentences occurrence in Facebook comments by context"));				
+			}
 
 	        XAxis xAxis = new XAxis();
 	        xAxis.setTickmarkPlacement(TickmarkPlacement.ON);

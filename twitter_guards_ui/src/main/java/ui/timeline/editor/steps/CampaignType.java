@@ -2,6 +2,7 @@ package ui.timeline.editor.steps;
 
 import ui.TwitterGuardUI;
 import ui.timeline.editor.EditorView;
+import ui.timeline.editor.FacebookEditorView;
 
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;

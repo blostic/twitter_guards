@@ -17,7 +17,12 @@ public class 	ResultsTabSheet extends VerticalLayout {
 		
 		tabSheet.addTab(campaingSummmaryInformation, "Campaign summary");
 		tabSheet.addTab(campaingSummaryByKeyword, "Keywords summary");
-		tabSheet.addTab(tweetsDetaileInfo, "Tweets details");
+		
+        if (campaign.isTwitterCampaign()) {
+        	tabSheet.addTab(tweetsDetaileInfo, "Tweets details");
+		} else {
+			tabSheet.addTab(tweetsDetaileInfo, "Facebook details");
+		}
 		
 		addComponent(tabSheet);
 		setMargin(true);

@@ -1,4 +1,4 @@
-package ui.timeline.editor.steps;
+package ui.timeline.editor;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,14 +10,17 @@ import persistance.campaign.dao.CampaignDao;
 import persistance.campaign.entity.Campaign;
 import ui.TwitterGuardUI;
 import ui.timeline.TimelineComponent;
-import ui.timeline.editor.StepsManager;
-import ui.timeline.editor.StepsMenu;
+import ui.timeline.editor.steps.BasicConfig;
+import ui.timeline.editor.steps.EditorStep;
+import ui.timeline.editor.steps.FacebookProfileStep;
+import ui.timeline.editor.steps.KeywordsSpecification;
 
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
+
 import communicator.TwitterGuardsApiWrapper;
 
 public class FacebookEditorView extends VerticalLayout {
@@ -38,7 +41,7 @@ public class FacebookEditorView extends VerticalLayout {
 		stepsManager = new StepsManager();
 		initiateSteps();
 		initiateStepsManager();
-
+		campaign.setTwitterCampaign(false);
 		showContent();
 	}
 	

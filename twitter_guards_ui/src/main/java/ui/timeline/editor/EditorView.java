@@ -40,7 +40,7 @@ public class EditorView extends VerticalLayout {
 		stepsManager = new StepsManager();
 		initiateSteps();
 		initiateStepsManager();
-
+		campaign.setTwitterCampaign(true);
 		showContent();
 	}
 	

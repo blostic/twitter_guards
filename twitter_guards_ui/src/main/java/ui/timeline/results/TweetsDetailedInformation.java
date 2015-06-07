@@ -21,26 +21,36 @@ public class TweetsDetailedInformation extends VerticalLayout {
 	private Table tweetsTable;
 
 	public TweetsDetailedInformation(Campaign campaign) {
+		
 		tweetsTable = new Table();
-		tweetsTable.addContainerProperty("Keyword", String.class, null);
-		tweetsTable.addContainerProperty("Tweet Text",  TextArea.class, null);
-		tweetsTable.addContainerProperty("Date",  Date.class, null);
-		tweetsTable.addContainerProperty("Location",  String.class, null);
-		tweetsTable.addContainerProperty("Link to post",  Label.class, null);
-		tweetsTable.addContainerProperty("Score",  Emotion.class, null);
+		if (campaign.isTwitterCampaign()) {
+			tweetsTable.addContainerProperty("Keyword", String.class, null);
+			tweetsTable.addContainerProperty("Tweet Text",  TextArea.class, null);
+			tweetsTable.addContainerProperty("Date",  Date.class, null);
+			tweetsTable.addContainerProperty("Location",  String.class, null);
+			tweetsTable.addContainerProperty("Link to post",  Label.class, null);
+			tweetsTable.addContainerProperty("Score",  Emotion.class, null);			
+			addTweets(tweetsTable, campaign);
+		} else {
+			tweetsTable.addContainerProperty("Keyword", String.class, null);
+			tweetsTable.addContainerProperty("Comment Text",  TextArea.class, null);
+			tweetsTable.addContainerProperty("Date",  Date.class, null);
+//			tweetsTable.addContainerProperty("Link to post",  Label.class, null);
+			tweetsTable.addContainerProperty("Score",  Emotion.class, null);						
+			addFacebookComments(tweetsTable, campaign);
+		}
 		
 //		addFakeData();
 //		getDataForCampaign(campaign);
 		
 		//addFakeData(tweetsTable);
-		addTweets(tweetsTable, campaign);
 
 		tweetsTable.setPageLength(8);
 		tweetsTable.addStyleName("result-summary-table");
 		addComponent(tweetsTable);
 		tweetsTable.setSizeFull();
 	}
-	
+
 	public void getDataForCampaign(Campaign campaign) {
 		int i = 0;
 		for(Entry<Long, Tweet> tweetEntry: campaign.getTimeToTweetMap().entrySet()) {
@@ -88,6 +98,27 @@ public class TweetsDetailedInformation extends VerticalLayout {
 					tweet.getCreationTime(),
 					tweet.getPosition().toString(),
 					linkLabel,
+					tweet.getEmotion()
+			}, i);
+			i++;
+		}
+	}
+
+	
+	private void addFacebookComments(Table table, Campaign campaign) {
+		Collection<Tweet> tweets = TweetDao.get().getTweets(campaign.getTitle(), campaign.getKeywords());
+		int i = 0;
+		for(Tweet tweet : tweets){
+			TextArea commentsField = new TextArea();
+			commentsField.setWidth("100%");
+			commentsField.setValue(tweet.getText());
+//			Label linkLabel = new Label("<a href='https://twitter.com/statuses/" + tweet.getTweeterTweetId() + "'>Go to Comment</a>", ContentMode.HTML);
+			table.addItem(new Object[]{
+				tweet.getRouteName().split("_")[1],
+					commentsField,
+					tweet.getCreationTime(),
+//					tweet.getPosition().toString(),
+//					linkLabel,
 					tweet.getEmotion()
 			}, i);
 			i++;

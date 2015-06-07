@@ -29,6 +29,8 @@ public class Campaign {
 	private Polygon polygon;
 	private Map<Long, Tweet> timeToTweetMap = new HashMap<Long, Tweet>();
 	
+	private boolean isTwitterCampaign;
+	
 	private List<String> facebookProfiles;
 	
 	public ObjectId getId() {
@@ -118,6 +120,14 @@ public class Campaign {
 
 	public void setFacebookProfiles(List<String> facebookProfiles) {
 		this.facebookProfiles = facebookProfiles;
+	}
+
+	public boolean isTwitterCampaign() {
+		return isTwitterCampaign;
+	}
+
+	public void setTwitterCampaign(boolean isTwitterCampaign) {
+		this.isTwitterCampaign = isTwitterCampaign;
 	}
 
 }

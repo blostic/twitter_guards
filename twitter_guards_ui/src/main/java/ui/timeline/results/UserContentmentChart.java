@@ -1,6 +1,10 @@
 package ui.timeline.results;
 
+import java.util.List;
+
 import persistance.campaign.entity.Campaign;
+import persistance.tweets.dao.TweetDao;
+import persistance.tweets.entity.Emotion;
 
 import com.vaadin.addon.charts.Chart;
 import com.vaadin.addon.charts.model.ChartType;
@@ -12,10 +16,6 @@ import com.vaadin.addon.charts.model.Labels;
 import com.vaadin.addon.charts.model.PlotOptionsPie;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.VerticalLayout;
-import persistance.tweets.dao.TweetDao;
-import persistance.tweets.entity.Emotion;
-
-import java.util.List;
 
 public class UserContentmentChart extends VerticalLayout {
 
@@ -42,7 +42,12 @@ public class UserContentmentChart extends VerticalLayout {
 
         conf = chart.getConfiguration();
 
-        conf.setTitle("Context of collected tweets");
+
+        if (campaign.isTwitterCampaign()) {
+        	conf.setTitle("Context of collected tweets");
+		} else {
+        	conf.setTitle("Context of collected Facebook comments");
+		}
 
 
         PlotOptionsPie plotOptions = new PlotOptionsPie();
