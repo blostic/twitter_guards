@@ -13,7 +13,6 @@ import ui.timeline.TimelineComponent;
 import ui.timeline.editor.steps.BasicConfig;
 import ui.timeline.editor.steps.EditorStep;
 import ui.timeline.editor.steps.FacebookProfileStep;
-import ui.timeline.editor.steps.KeywordsSpecification;
 
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button.ClickEvent;
@@ -103,7 +102,7 @@ public class FacebookEditorView extends VerticalLayout {
 				CampaignDao.get().save(campaign);
 				((TwitterGuardUI)UI.getCurrent()).getContentWrapper().setContent(new TimelineComponent());
 	        	try {
-					new TwitterGuardsApiWrapper().sendHttpRequest(campaign);
+					new TwitterGuardsApiWrapper().sendHttpRequestFacebook(campaign);
 				} catch (ClientProtocolException e) {
 					e.printStackTrace();
 				} catch (IOException e) {
@@ -117,7 +116,6 @@ public class FacebookEditorView extends VerticalLayout {
 	private void initiateSteps() {
 		steps.add(new BasicConfig());
 		steps.add(new FacebookProfileStep());
-		steps.add(new KeywordsSpecification());
 	}
 	
 }

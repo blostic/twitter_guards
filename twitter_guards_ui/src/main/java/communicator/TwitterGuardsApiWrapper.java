@@ -54,5 +54,34 @@ public class TwitterGuardsApiWrapper {
 		}
 		
 	}
+
+	public void sendHttpRequestFacebook(Campaign campaign) throws ClientProtocolException, IOException {
+		HttpClient httpclient = HttpClients.createDefault();
+		HttpPost httppost = new HttpPost(PropertiesManager.getProperty("twitter_service_address") + "rest/facebookCampaigns/add");
+//		ObjectMapper mapper = new ObjectMapper();
+//		String json = mapper.writeValueAsString(campaign);
+
+		StringEntity params = new StringEntity(
+				"{\"camapignName\": \"" + campaign.getTitle() + "\",\"pageIds\":" + new Gson().toJson(campaign.getFacebookProfiles()) + "}"
+		);
+		httppost.addHeader("content-type", "application/json");
+		httppost.addHeader("Accept", "application/json");
+		httppost.setEntity(params);
+
+		HttpResponse response = httpclient.execute(httppost);
+		HttpEntity entity = response.getEntity();
+		if (entity != null) {
+			InputStream instream = entity.getContent();
+			try {
+				StringWriter writer = new StringWriter();
+				IOUtils.copy(instream, writer, "utf-8");
+				String result = writer.toString();
+				System.out.println(result);
+			} finally {
+				instream.close();
+			}
+		}
+
+	}
 	
 }

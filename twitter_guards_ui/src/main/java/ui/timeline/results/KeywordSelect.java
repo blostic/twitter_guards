@@ -26,8 +26,8 @@ public class KeywordSelect extends VerticalLayout {
 		keywordSelection.addValueChangeListener(
 				v->{
 					campaignDetailInformationByKeyword.setSelectedKeyword(v.toString());
-					userContentmentChart.drawChart(Arrays.asList(v.getProperty().getValue().toString()));
-					historyChart.drawChart(Arrays.asList(v.getProperty().getValue().toString()));
+					userContentmentChart.drawChartTwitter(Arrays.asList(v.getProperty().getValue().toString()));
+					historyChart.drawTwitterChart(Arrays.asList(v.getProperty().getValue().toString()));
 				});
 		addComponents(selectKeyword, keywordSelection);
 		setComponentAlignment(selectKeyword, Alignment.MIDDLE_CENTER);

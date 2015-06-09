@@ -24,7 +24,15 @@ public class CampaignDetailInformationByKeyword extends VerticalLayout {
 	private void buildCharts() {
 		UserContentmentChart userContentmentChart = new UserContentmentChart(campaign);
 		HistoryChart historyChart = new HistoryChart(campaign);
-		KeywordSelect keywordSelect = new KeywordSelect(campaign, this, userContentmentChart, historyChart);
+
+		VerticalLayout keywordSelect;
+
+		if(campaign.isTwitterCampaign()){
+			keywordSelect = new KeywordSelect(campaign, this, userContentmentChart, historyChart);
+		} else {
+			keywordSelect = new PageIdSelect(campaign, this, userContentmentChart, historyChart);
+		}
+
 		HorizontalLayout firstLine = new HorizontalLayout(keywordSelect, userContentmentChart);
 		firstLine.setSizeFull();
 		firstLine.setComponentAlignment(keywordSelect, Alignment.MIDDLE_CENTER);

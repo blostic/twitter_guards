@@ -31,17 +31,19 @@ public class FacebookCampaignController {
         if(StringUtils.isEmpty(configuration.getCamapignName())){
             return new ResponseEntity<>("Campaign name not provided", HttpStatus.BAD_REQUEST);
         }
-        if(StringUtils.isEmpty(configuration.getPageId())){
+        if(configuration.getPageIds() == null || configuration.getPageIds().isEmpty()){
             return new ResponseEntity<>("Page Id not provided", HttpStatus.BAD_REQUEST);
         }
 
-        FacebookRouteConfiguration routeConfiguration = new FacebookRouteConfiguration(
-                configuration.getCamapignName(),
-                configuration.getPageId(),
-                "fbPostRankProcessor", null, "facebookPosts"
-        );
+        for(String pageId : configuration.getPageIds()) {
+            FacebookRouteConfiguration routeConfiguration = new FacebookRouteConfiguration(
+                    configuration.getCamapignName() + "_" + pageId,
+                    pageId,
+                    "fbPostRankProcessor", null, "facebookPosts"
+            );
 
-        manager.addFbPostsRouteWithRank(routeConfiguration);
+            manager.addFbPostsRouteWithRank(routeConfiguration);
+        }
 
         return ResponseEntity.ok().build();
 

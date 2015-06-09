@@ -12,12 +12,14 @@ public class 	ResultsTabSheet extends VerticalLayout {
 	public ResultsTabSheet(Campaign campaign){
 		TabSheet tabSheet = new TabSheet();
 		CampaignDetailInformation campaingSummmaryInformation = new CampaignDetailInformation(campaign);
+		tabSheet.addTab(campaingSummmaryInformation, "Campaign summary");
 		CampaignDetailInformationByKeyword campaingSummaryByKeyword = new CampaignDetailInformationByKeyword(campaign);
+
+		tabSheet.addTab(campaingSummaryByKeyword, campaign.isTwitterCampaign()?"Keywords summary":"Pages summary");
+
 		TweetsDetailedInformation tweetsDetaileInfo = new TweetsDetailedInformation(campaign);
 		
-		tabSheet.addTab(campaingSummmaryInformation, "Campaign summary");
-		tabSheet.addTab(campaingSummaryByKeyword, "Keywords summary");
-		
+
         if (campaign.isTwitterCampaign()) {
         	tabSheet.addTab(tweetsDetaileInfo, "Tweets details");
 		} else {

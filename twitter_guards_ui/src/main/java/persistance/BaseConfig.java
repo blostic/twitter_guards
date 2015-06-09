@@ -1,6 +1,7 @@
 package persistance;
 
 import persistance.campaign.entity.Campaign;
+import persistance.facebook.entity.FacebookComment;
 import persistance.tweets.entity.Tweet;
 import persistance.user.entity.User;
 
@@ -11,6 +12,7 @@ public class BaseConfig {
 		createCollection(Tweet.class);
 		createCollection(Campaign.class);
 		createCollection(User.class);
+		createCollection(FacebookComment.class);
 	}
 	
 	public static void createCollection(Class<?> collectionEntityClass) {

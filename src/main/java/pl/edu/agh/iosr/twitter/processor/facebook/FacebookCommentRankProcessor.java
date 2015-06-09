@@ -3,6 +3,7 @@ package pl.edu.agh.iosr.twitter.processor.facebook;
 import facebook4j.Comment;
 import pl.edu.agh.iosr.twitter.dto.assembler.FacebookCommentDTOAssembler;
 import pl.edu.agh.iosr.twitter.filter.FacebookDuplicateCommentsFilter;
+import pl.edu.agh.iosr.twitter.model.Emotion;
 import pl.edu.agh.iosr.twitter.model.facebook.FacebookComment;
 import pl.edu.agh.iosr.twitter.ranker.IRanker;
 
@@ -26,7 +27,7 @@ public class FacebookCommentRankProcessor extends AbstractFacebookCommentProcess
         }
 
         FacebookComment persistenceComment = new FacebookComment(
-                rank,
+                Emotion.getValue(rank),
                 postId,
                 campaignName,
                 comment.getId(),

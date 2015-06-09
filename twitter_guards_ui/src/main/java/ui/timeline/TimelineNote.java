@@ -81,11 +81,13 @@ public class TimelineNote extends HorizontalLayout {
 	
     public TimelineNote(Campaign campaign){
     	VerticalLayout content = styleNote();
-		int tweetsCount = TweetDao.get().getTweets(campaign.getTitle(), campaign.getKeywords()).size();
-        Label processedTweetsLabel = new Label("Processed tweets: " + tweetsCount);
+		if(campaign.isTwitterCampaign()) {
+			int tweetsCount = TweetDao.get().getTweets(campaign.getTitle(), campaign.getKeywords()).size();
+			Label processedTweetsLabel = new Label("Processed tweets: " + tweetsCount);
+			content.addComponents(processedTweetsLabel);
+		}
         content.addComponent(new Label("<font size=5> title: "+ campaign.getTitle() +"</font>", ContentMode.HTML));
-        content.addComponent(new Label("<font size=3> description: "+ campaign.getDescription() +"</font>", ContentMode.HTML));
-        content.addComponents(processedTweetsLabel);
+		content.addComponent(new Label("<font size=3> description: " + campaign.getDescription() +"</font>", ContentMode.HTML));
         content.addComponent(getDates(campaign.getStartDate(), campaign.getEndDate()));
         content.setSpacing(true);
         

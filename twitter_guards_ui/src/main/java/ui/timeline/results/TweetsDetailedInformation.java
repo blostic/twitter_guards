@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.Map.Entry;
 
 import persistance.campaign.entity.Campaign;
+import persistance.facebook.dao.FacebookCommentDao;
+import persistance.facebook.entity.FacebookComment;
 import persistance.tweets.dao.TweetDao;
 import persistance.tweets.entity.Emotion;
 import persistance.tweets.entity.Tweet;
@@ -32,10 +34,10 @@ public class TweetsDetailedInformation extends VerticalLayout {
 			tweetsTable.addContainerProperty("Score",  Emotion.class, null);			
 			addTweets(tweetsTable, campaign);
 		} else {
-			tweetsTable.addContainerProperty("Keyword", String.class, null);
+			tweetsTable.addContainerProperty("Pageid", String.class, null);
 			tweetsTable.addContainerProperty("Comment Text",  TextArea.class, null);
 			tweetsTable.addContainerProperty("Date",  Date.class, null);
-//			tweetsTable.addContainerProperty("Link to post",  Label.class, null);
+			tweetsTable.addContainerProperty("Link to comment",  Label.class, null);
 			tweetsTable.addContainerProperty("Score",  Emotion.class, null);						
 			addFacebookComments(tweetsTable, campaign);
 		}
@@ -106,20 +108,21 @@ public class TweetsDetailedInformation extends VerticalLayout {
 
 	
 	private void addFacebookComments(Table table, Campaign campaign) {
-		Collection<Tweet> tweets = TweetDao.get().getTweets(campaign.getTitle(), campaign.getKeywords());
+		Collection<FacebookComment> comments = FacebookCommentDao.get().getComments(campaign.getTitle());
 		int i = 0;
-		for(Tweet tweet : tweets){
+		for(FacebookComment comment : comments){
+			String[] c = comment.getCommentId().split("_");
 			TextArea commentsField = new TextArea();
 			commentsField.setWidth("100%");
-			commentsField.setValue(tweet.getText());
-//			Label linkLabel = new Label("<a href='https://twitter.com/statuses/" + tweet.getTweeterTweetId() + "'>Go to Comment</a>", ContentMode.HTML);
+			commentsField.setValue(comment.getMessage());
+			Label linkLabel = new Label("<a href='https://www.facebook.com/" + c[0] + "?comment_id=" + c[1] + "'>Go to Comment</a>", ContentMode.HTML);
 			table.addItem(new Object[]{
-				tweet.getRouteName().split("_")[1],
+				comment.getPostId(),
 					commentsField,
-					tweet.getCreationTime(),
+					comment.getCreationDate(),
 //					tweet.getPosition().toString(),
-//					linkLabel,
-					tweet.getEmotion()
+					linkLabel,
+					comment.getEmotion()
 			}, i);
 			i++;
 		}

@@ -3,6 +3,7 @@ package ui.timeline.results;
 import java.util.List;
 
 import persistance.campaign.entity.Campaign;
+import persistance.facebook.dao.FacebookCommentDao;
 import persistance.tweets.dao.TweetDao;
 import persistance.tweets.entity.Emotion;
 
@@ -58,13 +59,17 @@ public class UserContentmentChart extends VerticalLayout {
         plotOptions.setDataLabels(dataLabels);
         conf.setPlotOptions(plotOptions);
 
-        drawChart(campaign.getKeywords());
+        if(campaign.isTwitterCampaign()) {
+            drawChartTwitter(campaign.getKeywords());
+        } else {
+            drawChartFacebook("");
+        }
 
         return chart;
 
     }
 
-    public void drawChart(List<String> keywords){
+    public void drawChartTwitter(List<String> keywords){
         DataSeries series = new DataSeries();
 
         TweetDao dao = TweetDao.get();
@@ -80,6 +85,26 @@ public class UserContentmentChart extends VerticalLayout {
         series.add(new DataSeriesItem("Negative", dao.getTweets(campaign.getTitle(), keywords, Emotion.NEGATIVE).size()));
         series.add(new DataSeriesItem("Super Negative", dao.getTweets(campaign.getTitle(), keywords, Emotion.SUPER_NEGATIVE).size()));
         series.add(new DataSeriesItem("Unrecognized", dao.getTweets(campaign.getTitle(), keywords, Emotion.UNRECOGNIZED).size()));
+
+        chart.drawChart(conf);
+    }
+
+    public void drawChartFacebook(String pageId){
+        DataSeries series = new DataSeries();
+
+        FacebookCommentDao dao = FacebookCommentDao.get();
+
+        series.add(new DataSeriesItem("Super Positive", dao.getComments(campaign.getTitle(), Emotion.SUPER_POSITIVE).size()));
+        DataSeriesItem distinct = new DataSeriesItem("Positive", dao.getComments(campaign.getTitle(), Emotion.POSITIVE).size());
+        distinct.setSliced(true);
+        distinct.setSelected(true);
+        series.add(distinct);
+        conf.setSeries(series);
+
+        series.add(new DataSeriesItem("Neutral", dao.getComments(campaign.getTitle(), Emotion.NEUTRAL).size()));
+        series.add(new DataSeriesItem("Negative", dao.getComments(campaign.getTitle(), Emotion.NEGATIVE).size()));
+        series.add(new DataSeriesItem("Super Negative", dao.getComments(campaign.getTitle(), Emotion.SUPER_NEGATIVE).size()));
+        series.add(new DataSeriesItem("Unrecognized", dao.getComments(campaign.getTitle(), Emotion.UNRECOGNIZED).size()));
 
         chart.drawChart(conf);
     }

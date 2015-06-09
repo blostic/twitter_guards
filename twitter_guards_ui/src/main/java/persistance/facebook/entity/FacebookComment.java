@@ -1,10 +1,9 @@
-package pl.edu.agh.iosr.twitter.model.facebook;
+package persistance.facebook.entity;
 
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-import pl.edu.agh.iosr.twitter.model.Emotion;
+import persistance.tweets.entity.Emotion;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -12,7 +11,7 @@ import java.util.Date;
 /**
  * Created by radoslawdyrda on 24.05.2015.
  */
-@Document(collection = "facebookComments")
+@Entity(noClassnameStored = true, value = "facebookComments")
 public class FacebookComment implements Serializable {
 
     @Id
