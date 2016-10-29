@@ -14,14 +14,7 @@ W projekcie wykorzystujemy issue tracker dostarczony przed github.com. Adres: ht
 ### Branching Model
 Zasady tworzenia gałęzi:
 * Dla każdego taska powinien być tworzony osobny branch (wyjątkiem są sytuacje, w których 2 taski są ze sobą bardzo silnie powiązane) 
-* Przed zmergowaniem do głównego brancha, kod powstały w trakcie wykonywania danego taska powinien zostać poddany ocenie przez właściwego dla autora kodu recenzenta (lista przypisań poniżej)
-	
-|     Autor          |    Recenzent    |
-| :------------------|:--------------- |
-| Radosław Dyrda     | Jakub Słoniec   |
-| Mirosław Sajdak    | Radosław Dyrda  |
-| Piotr Skibiak      | Mirosław Sajdak |
-| Jakub Słoniec      | Piotr Skibiak   |
+* Przed zmergowaniem do głównego brancha, kod powstały w trakcie wykonywania danego taska powinien zostać poddany ocenie przez właściwego dla autora kodu recenzenta
 
 Nazewnictwo branchy:
 * Nazwa brancha powinna być krótka, lecz jednocześnie opisywać task przypisany do danego brancha
